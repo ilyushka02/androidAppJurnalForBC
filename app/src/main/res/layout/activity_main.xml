@@ -8,7 +8,7 @@
     android:background="@color/white">
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/header_start_page"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:gravity="center"
@@ -16,7 +16,7 @@
         tools:ignore="MissingConstraints">
 
         <LinearLayout
-            android:id="@+id/linearLayout3"
+            android:id="@+id/topik_start_page"
             android:layout_width="250dp"
             android:layout_height="40dp"
             android:background="@drawable/shape_for_head"
@@ -38,7 +38,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/backgroun_img"
         android:layout_width="match_parent"
         android:layout_height="410dp"
         android:layout_marginTop="400dp"
@@ -49,7 +49,7 @@
         app:srcCompat="@drawable/bacground_img"/>
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/body_start_page"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="100dp"
@@ -89,7 +89,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/editTextTextPassword"
+                android:id="@+id/textFieldsUserPassword"
                 android:layout_width="230dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="@dimen/fieldMarginLefRight"
@@ -104,7 +104,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/signin_btn"
             android:layout_width="120dp"
             android:layout_height="40dp"
             android:layout_marginTop="40dp"
