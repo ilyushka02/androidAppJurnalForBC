@@ -8,7 +8,7 @@
     android:background="@color/white">
 
     <LinearLayout
-        android:id="@+id/header_start_page"
+        android:id="@+id/header_signup_page"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:gravity="center"
@@ -114,14 +114,15 @@
             app:cornerRadius="10dp"/>
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/textCreateNewAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Создайте новый аккаунт"
+            android:clickable="true"
             android:gravity="center_horizontal"
+            android:text="Создайте новый аккаунт"
             android:textColor="@color/hiper_linc_color"
-            android:textSize="7pt"/>
+            android:textSize="7pt" />
 
     </LinearLayout>
 

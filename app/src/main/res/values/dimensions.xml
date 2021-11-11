@@ -2,4 +2,13 @@
 <resources>
     <dimen name="fieldMarginTopBotton">5dp</dimen>
     <dimen name="fieldMarginLefRight">10dp</dimen>
+    <!--Окно регистрации.-->
+        <!--Заголовки форм-->
+    <dimen name="marginTopTextViewSignUp">5dp</dimen>
+    <dimen name="sizeTextViewSignUp">15dp</dimen>
+        <!--Поля заполнения-->
+    <dimen name="widthTextEditSignUp">300dp</dimen>
+    <dimen name="heightTextEditSignUp">40dp</dimen>
+    <dimen name="sizeTextEditSignUp">15dp</dimen>
+    <dimen name="marginBottomTextEditSignUp">25dp</dimen>
 </resources>

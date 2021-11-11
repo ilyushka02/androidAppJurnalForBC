@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Signup">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="410dp"
+        android:layout_marginTop="400dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bacground_img" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="78dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/header_signup_page"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/imageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints">
+
+                <LinearLayout
+                    android:id="@+id/topik_start_page"
+                    android:layout_width="250dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/shape_for_head"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Авторизация"
+                        android:textColor="@color/white"
+                        android:textSize="10pt"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!--            <ImageButton-->
+<!--                android:id="@+id/imageButton"-->
+<!--                android:layout_width="100dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@color/white"-->
+<!--                app:srcCompat="@drawable/back" />-->
+
+            <Button
+                android:id="@+id/button_back"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="200dp"
+                android:layout_marginLeft="200dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Вернуться назад"
+                android:textColor="@color/green"
+                android:textSize="10dp"
+                app:backgroundTint="@color/white" />
+
+            <LinearLayout
+                android:id="@+id/body_start_page"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/shape_for_field"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.51">
+
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/marginTopTextViewSignUp"
+                    android:gravity="center_horizontal"
+                    android:text="Как можно к вам обращаться?"
+                    android:textSize="@dimen/sizeTextViewSignUp"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/textLastName"
+                    android:layout_width="@dimen/widthTextEditSignUp"
+                    android:layout_height="@dimen/heightTextEditSignUp"
+                    android:layout_marginTop="15dp"
+                    android:backgroundTint="@color/green"
+                    android:ems="10"
+                    android:hint="Иванов"
+                    android:inputType="text"
+                    android:textSize="@dimen/sizeTextEditSignUp" />
+
+                <EditText
+                    android:id="@+id/textFirstName"
+                    android:layout_width="@dimen/widthTextEditSignUp"
+                    android:layout_height="@dimen/heightTextEditSignUp"
+                    android:backgroundTint="@color/green"
+                    android:ems="10"
+                    android:hint="Иван"
+                    android:inputType="text"
+                    android:textSize="@dimen/sizeTextEditSignUp" />
+
+                <EditText
+                    android:id="@+id/textSecondName"
+                    android:layout_width="@dimen/widthTextEditSignUp"
+                    android:layout_height="@dimen/heightTextEditSignUp"
+                    android:backgroundTint="@color/green"
+                    android:layout_marginBottom="25dp"
+                    android:ems="10"
+                    android:hint="Иванович"
+                    android:inputType="text"
+                    android:textSize="@dimen/sizeTextEditSignUp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/shape_for_field"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.51">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/marginTopTextViewSignUp"
+                    android:gravity="center_horizontal"
+                    android:text="Нам нужно немного больше информации"
+                    android:textSize="@dimen/sizeTextViewSignUp"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/users_group"
+                    android:layout_width="@dimen/widthTextEditSignUp"
+                    android:layout_height="@dimen/heightTextEditSignUp"
+                    android:layout_marginTop="15dp"
+                    android:backgroundTint="@color/green"
+                    android:ems="10"
+                    android:hint="4ИСиП-18-3"
+                    android:inputType="text"
+                    android:textSize="@dimen/sizeTextEditSignUp" />
+
+                <EditText
+                    android:id="@+id/birthday"
+                    android:layout_width="@dimen/widthTextEditSignUp"
+                    android:layout_height="@dimen/heightTextEditSignUp"
+                    android:backgroundTint="@color/green"
+                    android:ems="10"
+                    android:hint="Дата Рождения"
+                    android:inputType="date"
+                    android:textSize="@dimen/sizeTextEditSignUp" />
+
+                <EditText
+                    android:id="@+id/gender"
+                    android:layout_width="@dimen/widthTextEditSignUp"
+                    android:layout_height="@dimen/heightTextEditSignUp"
+                    android:backgroundTint="@color/green"
+                    android:ems="10"
+                    android:hint="м/ж"
+                    android:inputType="text"
+                    android:textSize="@dimen/sizeTextEditSignUp" />
+
+                <EditText
+                    android:id="@+id/number_phone"
+                    android:layout_width="@dimen/widthTextEditSignUp"
+                    android:layout_height="@dimen/heightTextEditSignUp"
+                    android:layout_marginBottom="25dp"
+                    android:backgroundTint="@color/green"
+                    android:ems="10"
+                    android:hint="+7(910)-880-9647"
+                    android:inputType="text"
+                    android:textSize="@dimen/sizeTextEditSignUp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/shape_for_field"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.51">
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/marginTopTextViewSignUp"
+                    android:gravity="center_horizontal"
+                    android:text="Придумайте пароль"
+                    android:textSize="@dimen/sizeTextViewSignUp"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/users_password_1"
+                    android:layout_width="@dimen/widthTextEditSignUp"
+                    android:layout_height="@dimen/heightTextEditSignUp"
+                    android:backgroundTint="@color/green"
+                    android:ems="10"
+                    android:hint="Введите пароль"
+                    android:inputType="textPassword"
+                    android:textSize="@dimen/sizeTextEditSignUp" />
+
+                <EditText
+                    android:id="@+id/users_password_2"
+                    android:layout_width="@dimen/widthTextEditSignUp"
+                    android:layout_height="@dimen/heightTextEditSignUp"
+                    android:layout_marginBottom="25dp"
+                    android:backgroundTint="@color/green"
+                    android:ems="10"
+                    android:hint="Введите пароль еще раз"
+                    android:inputType="textPassword"
+                    android:textSize="@dimen/sizeTextEditSignUp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
