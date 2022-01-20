@@ -4,11 +4,12 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/journal_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/journal_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.SportJournal">
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".Signup">
             <intent-filter>
                 <action android:name="android.intent.action.Signup" />
@@ -16,7 +17,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
+
+        <activity android:name=".SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
