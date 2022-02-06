@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -16,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 public class Signup extends AppCompatActivity implements View.OnClickListener {
-    String[] gender_array = {"не выбрано", "мужской", "женский"};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +24,13 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_signup);
         //Заполняем выпадаюдщий список
         Spinner spinner = findViewById(R.id.gender);
-        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, gender_array);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        Function.createArrayForSpinner(spinner, this);
+        //Создаем маску для дня рождения
+        EditText et_dateBirthday = findViewById(R.id.birthday);
+        Function.createPatternForDateBirthday(et_dateBirthday);
+        //Создаем маску для дня рождения
+        EditText et_phoneNumber = findViewById(R.id.number_phone);
+        Function.createPatternForPhoneNumber(et_phoneNumber);
         //Находим элементы и устанавливаем на них слушатель нажатий
         Button btn_back = findViewById(R.id.button_back);
         btn_back.setOnClickListener(this);
