@@ -28,7 +28,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         //Создаем маску для дня рождения
         EditText et_dateBirthday = findViewById(R.id.birthday);
         Function.createPatternForDateBirthday(et_dateBirthday);
-        //Создаем маску для дня рождения
+        //Создаем маску для дня номера телефона
         EditText et_phoneNumber = findViewById(R.id.number_phone);
         Function.createPatternForPhoneNumber(et_phoneNumber);
         //Находим элементы и устанавливаем на них слушатель нажатий
