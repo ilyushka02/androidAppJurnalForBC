@@ -9,7 +9,11 @@
         android:roundIcon="@drawable/journal_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.SportJournal">
-        <activity android:name=".MainActivity"></activity>
+        <activity
+            android:name=".UserActivity"
+            android:label="@string/title_activity_user"
+            android:theme="@style/Theme.SportJournal.NoActionBar"></activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".Signup">
             <intent-filter>
                 <action android:name="android.intent.action.Signup" />
@@ -17,8 +21,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".SplashActivity"
+        <activity
+            android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
