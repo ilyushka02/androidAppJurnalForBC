@@ -1,13 +1,13 @@
 package com.example.sportjournal;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private  TextView textView_createAcc;
@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.signin_btn:
                 Log.d(MainActivity.class.getSimpleName() ,"Sign in btn detected ------------- click click click ");
+                openUserActivity();
                 break;
             case R.id.textCreateNewAccount:
                 openSignup();
@@ -38,6 +39,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void openSignup() {
         Intent intent = new Intent(this, Signup.class);
+        startActivity(intent);
+    }
+
+    private void openUserActivity() {
+        Intent intent = new Intent(this, UserActivity.class);
         startActivity(intent);
     }
 }
