@@ -8,5 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="green">#7CC901</color>
+    <color name="w_green">#BCEB0C</color>
     <color name="hiper_linc_color">#0000FF</color>
 </resources>
