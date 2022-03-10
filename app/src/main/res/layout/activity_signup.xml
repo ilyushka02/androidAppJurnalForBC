@@ -187,25 +187,25 @@
                     android:textSize="@dimen/sizeTextViewSignUp"
                     android:textStyle="bold"/>
 
-                <EditText
-                    android:id="@+id/users_group"
-                    android:layout_width="@dimen/widthTextEditSignUp"
-                    android:layout_height="@dimen/heightTextEditSignUp"
-                    android:layout_marginTop="15dp"
-                    android:backgroundTint="@color/green"
-                    android:ems="10"
-                    android:hint="4ИСиП-18-3"
-                    android:inputType="text"
-                    android:textSize="@dimen/sizeTextEditSignUp" />
 
                 <EditText
                     android:id="@+id/birthday"
                     android:layout_width="@dimen/widthTextEditSignUp"
                     android:layout_height="@dimen/heightTextEditSignUp"
+                    android:layout_marginTop="15dp"
                     android:backgroundTint="@color/green"
                     android:ems="10"
                     android:hint="Дата Рождения"
                     android:inputType="date"
+                    android:textSize="@dimen/sizeTextEditSignUp" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="@dimen/widthTextEditSignUp"
+                    android:layout_height="wrap_content"
+                    android:hint="Пол"
+                    android:paddingLeft="5dp"
+                    android:layout_marginBottom="5dp"
                     android:textSize="@dimen/sizeTextEditSignUp" />
 
                 <LinearLayout
@@ -224,18 +224,6 @@
 
                 </LinearLayout>
 
-
-
-<!--                <EditText-->
-<!--                    android:id="@+id/gender"-->
-<!--                    android:layout_width="@dimen/widthTextEditSignUp"-->
-<!--                    android:layout_height="@dimen/heightTextEditSignUp"-->
-<!--                    android:backgroundTint="@color/green"-->
-<!--                    android:ems="10"-->
-<!--                    android:hint="м/ж"-->
-<!--                    android:inputType="text"-->
-<!--                    android:textSize="@dimen/sizeTextEditSignUp" />-->
-
                 <EditText
                     android:id="@+id/number_phone"
                     android:layout_width="@dimen/widthTextEditSignUp"
@@ -244,7 +232,7 @@
                     android:backgroundTint="@color/green"
                     android:ems="10"
                     android:hint="+7(910)-880-9647"
-                    android:inputType="text"
+                    android:inputType="phone"
                     android:textSize="@dimen/sizeTextEditSignUp" />
 
 
@@ -282,6 +270,7 @@
                     android:id="@+id/users_password_1"
                     android:layout_width="@dimen/widthTextEditSignUp"
                     android:layout_height="@dimen/heightTextEditSignUp"
+                    android:layout_marginTop="15dp"
                     android:backgroundTint="@color/green"
                     android:ems="10"
                     android:hint="Введите пароль"
