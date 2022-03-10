@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Насурллаев"
-            android:textSize="15dp"
+            android:textSize="@dimen/size_for_TextView_user_nav"
             android:textStyle="bold"/>
 
         <TextView
@@ -43,9 +43,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Илья"
-            android:textSize="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:textSize="@dimen/size_for_TextView_user_nav"
+            android:layout_marginTop="@dimen/margin_for_TextView_user_nav"
+            android:layout_marginBottom="@dimen/margin_for_TextView_user_nav"
             android:textStyle="bold"/>
 
         <TextView
@@ -53,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Евгеньевич"
-            android:textSize="15dp"
+            android:textSize="@dimen/size_for_TextView_user_nav"
             android:textStyle="bold"/>
     </LinearLayout>
 
