@@ -11,7 +11,10 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
-    <string name="search_hint">Serch</string>
+    <string name="search_hint">Поиск</string>
     <string name="section">Секции</string>
     <string name="liked">Избранные</string>
+    <string name="menu_profile">Профиль</string>
+    <string name="menu_your_trainings">Ваши тренировки</string>
+    <string name="menu_setings">Настройки</string>
 </resources>

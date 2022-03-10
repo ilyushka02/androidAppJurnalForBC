@@ -37,6 +37,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.4.1'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
+    implementation 'androidx.mediarouter:mediarouter:1.2.6'
     testImplementation 'junit:junit:4.+'
     compile "ru.tinkoff.decoro:decoro:1.1.1"
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
