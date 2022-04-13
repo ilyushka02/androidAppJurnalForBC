@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".SigninActivity"
     android:background="@color/white">
 
     <LinearLayout
@@ -67,7 +67,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/textFieldUserName"
+                android:id="@+id/textFieldLogin"
                 android:layout_width="230dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="@dimen/fieldMarginLefRight"
@@ -75,8 +75,8 @@
                 android:layout_marginRight="@dimen/fieldMarginLefRight"
                 android:backgroundTint="@color/white"
                 android:ems="10"
-                android:hint="login"
-                android:inputType="textPersonName"
+                android:hint="email"
+                android:inputType="textEmailAddress"
                 android:textSize="15dp" />
 
         </LinearLayout>
@@ -89,7 +89,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/textFieldsUserPassword"
+                android:id="@+id/textFieldPassword"
                 android:layout_width="230dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="@dimen/fieldMarginLefRight"
@@ -99,7 +99,7 @@
                 android:ems="10"
                 android:hint="password"
                 android:inputType="textPassword"
-                
+                app:passwordToggleEnabled="true"
                 android:textSize="15dp" />
         </LinearLayout>
 

@@ -225,14 +225,14 @@
                 </LinearLayout>
 
                 <EditText
-                    android:id="@+id/number_phone"
+                    android:id="@+id/number_email"
                     android:layout_width="@dimen/widthTextEditSignUp"
                     android:layout_height="@dimen/heightTextEditSignUp"
                     android:layout_marginBottom="25dp"
                     android:backgroundTint="@color/green"
                     android:ems="10"
-                    android:hint="+7(910)-880-9647"
-                    android:inputType="phone"
+                    android:hint="user@email.ru"
+                    android:inputType="textEmailAddress"
                     android:textSize="@dimen/sizeTextEditSignUp" />
 
 
