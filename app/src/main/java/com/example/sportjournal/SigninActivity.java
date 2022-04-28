@@ -41,14 +41,14 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.signin_btn:
-                Authorization();
+                authorization();
                 break;
             case R.id.textCreateNewAccount:
                 openSignup();
                 break;
         }
     }
-    private void Authorization(){
+    private void authorization(){
         //Find by id element
         EditText field_login = findViewById(R.id.textFieldLogin);
         login = field_login.getText().toString().trim();

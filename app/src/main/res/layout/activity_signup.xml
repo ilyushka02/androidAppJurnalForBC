@@ -225,7 +225,7 @@
                 </LinearLayout>
 
                 <EditText
-                    android:id="@+id/number_email"
+                    android:id="@+id/email"
                     android:layout_width="@dimen/widthTextEditSignUp"
                     android:layout_height="@dimen/heightTextEditSignUp"
                     android:layout_marginBottom="25dp"
