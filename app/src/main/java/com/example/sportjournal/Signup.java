@@ -1,6 +1,5 @@
 package com.example.sportjournal;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,26 +19,28 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 public class Signup extends AppCompatActivity implements View.OnClickListener {
-    private EditText et_lastName, et_firsName, et_secondName, et_dateBirthday, et_email, et_password;
+    private EditText et_lastName, et_firsName, et_secondName, et_dateBirthday, et_email, et_password1, et_password2;
     private Spinner gender_list;
     private DatabaseReference db;
     private FirebaseAuth mAuth;
     private String USER_KEY = "USER";
+    private int FLAG_CHEKED = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_signup);
-        initialithation_component();
+        initialization_component();
     }
 
-    private void initialithation_component(){
+    private void initialization_component() {
         //Search elements on activity by id
         et_lastName = findViewById(R.id.textLastName);
         et_firsName = findViewById(R.id.textFirstName);
         et_secondName = findViewById(R.id.textSecondName);
         et_email = findViewById(R.id.email);
-        et_password = findViewById(R.id.users_password_1);
+        et_password1 = findViewById(R.id.users_password_1);
+        et_password2 = findViewById(R.id.users_password_2);
         et_dateBirthday = findViewById(R.id.birthday);
         gender_list = findViewById(R.id.gender);
         ImageButton imgBtn_createUser = findViewById(R.id.user_create);
@@ -54,12 +55,13 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         db = FirebaseDatabase.getInstance().getReference(USER_KEY);
         mAuth = FirebaseAuth.getInstance();
     }
+
     //Обработчик нажатий,
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_back:
-                openMain();
+                Function.openSignin(this);
                 break;
             case R.id.user_create:
                 createUser();
@@ -67,48 +69,60 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
-    private void openMain() {
-        Intent intent = new Intent(this, SigninActivity.class);
-        startActivity(intent);
-    }
-   
     protected void createUser() {
         String id = db.getKey();
         String first_name = et_firsName.getText().toString().trim();
         String last_name = et_lastName.getText().toString().trim();
-        String second_name = et_secondName.getText().toString().trim();
-        String email = et_email.getText().toString().trim();
-        String password = et_password.getText().toString().trim();
-        String birthday = et_dateBirthday.getText().toString().trim();
-        String gender = gender_list.getSelectedItem().toString().trim();
+        String second_name;
+        if (et_secondName.getText().toString().trim().isEmpty()){
+            second_name = "не указано";
+        } else {
+            second_name = et_secondName.getText().toString().trim();
+        }
+        String email;
+        FLAG_CHEKED = et_email.getText().toString().trim().lastIndexOf('@');
+        if (FLAG_CHEKED != -1){
+            email = et_email.getText().toString().trim();
+        } else {
+            Function.createToast(this, "Error: не правильный email!");
+            email = "";
+        }
+        String password1 = et_password1.getText().toString().trim();
+        String password2 = et_password2.getText().toString().trim();
+        String birthday;
+        if (et_dateBirthday.getText().toString().trim().isEmpty()){
+            birthday = "не указано";
+        } else {
+            birthday = et_dateBirthday.getText().toString().trim();
+        }
+        String gender;
+        if (gender_list.getSelectedItem().toString().trim().isEmpty()){
+            gender = "не указано";
+        } else {
+            gender = gender_list.getSelectedItem().toString().trim();
+        }
 
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
-                            Function.createToast(Signup.this, "Good jopa");
-                            User user = new User(id, last_name, first_name, second_name, email, gender, birthday);
-                            db.push().setValue(user);
-                        } else {
-                            Function.createToast(Signup.this, "Error");
-                        }
-                    }
-                });
-
-        //Находим элементы и забираем с них текст
-//
-//        if (Function.checkFieldForEmpty(et_firsName) | Function.checkFieldForEmpty(et_lastName)) {
-//            Log.d(Signup.class.getSimpleName(), "Error: TextField is null");
-//            Toast toast = Toast.makeText(getApplicationContext(),
-//                    "Вы не заполнили поля!",
-//                    Toast.LENGTH_SHORT);
-//            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-//            toast.show();
-//        }
-    }
-    private void openSignin() {
-        Intent intent = new Intent(this, SigninActivity.class);
-        startActivity(intent);
+        if (first_name.isEmpty() || last_name.isEmpty() || email.isEmpty() || password1.isEmpty() || password2.isEmpty()) {
+            Function.createToast(this, "Error: вы заполнили не все поля!");
+        } else {
+            if (password1.equals(password2)) {
+                mAuth.createUserWithEmailAndPassword(email, password1)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    Function.openSignin(Signup.this);
+                                    Function.createToast(Signup.this, "Successful!");
+                                    User user = new User(id, last_name, first_name, second_name, email, gender, birthday);
+                                    db.push().setValue(user);
+                                } else {
+                                    Function.createToast(Signup.this, "Error signup!");
+                                }
+                            }
+                        });
+            } else {
+                Function.createToast(this, "Error: пароли не совпадают!");
+            }
+        }
     }
 }
