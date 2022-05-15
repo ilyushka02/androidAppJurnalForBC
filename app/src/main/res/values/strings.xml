@@ -17,4 +17,7 @@
     <string name="menu_profile">Профиль</string>
     <string name="menu_your_trainings">Ваши тренировки</string>
     <string name="menu_setings">Настройки</string>
+    <string name="menu_exit">Выход</string>
+
+    <string name="error_connect">Ошибка соединения.\nПроверте свое подключение к инетернету и повторите попытку!</string>
 </resources>

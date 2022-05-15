@@ -71,8 +71,7 @@
                         android:layout_height="180dp"
                         android:background="@drawable/shape_for_field"
                         android:gravity="center"
-                        android:orientation="vertical">
-                    </LinearLayout>
+                        android:orientation="vertical"/>
 
                 </LinearLayout>
             </ScrollView>

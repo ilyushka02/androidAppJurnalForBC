@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -21,10 +23,12 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Signup extends AppCompatActivity implements View.OnClickListener {
     private EditText et_lastName, et_firsName, et_secondName, et_dateBirthday, et_email, et_password1, et_password2;
     private Spinner gender_list;
-    private DatabaseReference db;
     private FirebaseAuth mAuth;
+    private FirebaseDatabase db;
+    private DatabaseReference users;
     private String USER_KEY = "USER";
     private int FLAG_CHEKED = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +56,9 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         //Находим элементы и устанавливаем на них слушатель нажатий
         btn_back.setOnClickListener(this);
         imgBtn_createUser.setOnClickListener(this);
-        db = FirebaseDatabase.getInstance().getReference(USER_KEY);
+        //Подключаем необходимые функции firebase
+        db = FirebaseDatabase.getInstance();
+        users = db.getReference(USER_KEY);
         mAuth = FirebaseAuth.getInstance();
     }
 
@@ -70,40 +76,39 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
     }
 
     protected void createUser() {
-        String id = db.getKey();
         String first_name = et_firsName.getText().toString().trim();
         String last_name = et_lastName.getText().toString().trim();
         String second_name;
-        if (et_secondName.getText().toString().trim().isEmpty()){
+        if (et_secondName.getText().toString().trim().isEmpty()) {
             second_name = "не указано";
         } else {
             second_name = et_secondName.getText().toString().trim();
         }
         String email;
         FLAG_CHEKED = et_email.getText().toString().trim().lastIndexOf('@');
-        if (FLAG_CHEKED != -1){
+        if (FLAG_CHEKED != -1) {
             email = et_email.getText().toString().trim();
         } else {
-            Function.createToast(this, "Error: не правильный email!");
+            Snackbar.make(findViewById(R.id.body_signup_page), "Не правильный email!", BaseTransientBottomBar.LENGTH_SHORT).show();
             email = "";
         }
         String password1 = et_password1.getText().toString().trim();
         String password2 = et_password2.getText().toString().trim();
         String birthday;
-        if (et_dateBirthday.getText().toString().trim().isEmpty()){
+        if (et_dateBirthday.getText().toString().trim().isEmpty()) {
             birthday = "не указано";
         } else {
             birthday = et_dateBirthday.getText().toString().trim();
         }
         String gender;
-        if (gender_list.getSelectedItem().toString().trim().isEmpty()){
+        if (gender_list.getSelectedItem().toString().trim().isEmpty()) {
             gender = "не указано";
         } else {
             gender = gender_list.getSelectedItem().toString().trim();
         }
 
         if (first_name.isEmpty() || last_name.isEmpty() || email.isEmpty() || password1.isEmpty() || password2.isEmpty()) {
-            Function.createToast(this, "Error: вы заполнили не все поля!");
+            Snackbar.make(findViewById(R.id.body_signup_page), "Вы заполнили не все поля!", BaseTransientBottomBar.LENGTH_SHORT).show();
         } else {
             if (password1.equals(password2)) {
                 mAuth.createUserWithEmailAndPassword(email, password1)
@@ -111,17 +116,17 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    Function.openSignin(Signup.this);
-                                    Function.createToast(Signup.this, "Successful!");
+                                    String id = mAuth.getUid();
                                     User user = new User(id, last_name, first_name, second_name, email, gender, birthday);
-                                    db.push().setValue(user);
+                                    users.push().setValue(user);
+                                    Snackbar.make(findViewById(R.id.body_signup_page), "Successful", BaseTransientBottomBar.LENGTH_SHORT).show();
                                 } else {
-                                    Function.createToast(Signup.this, "Error signup!");
+                                    Snackbar.make(findViewById(R.id.body_signup_page), "Такой пользователь уже существует!", BaseTransientBottomBar.LENGTH_SHORT).show();
                                 }
                             }
                         });
             } else {
-                Function.createToast(this, "Error: пароли не совпадают!");
+                Snackbar.make(findViewById(R.id.body_signup_page), "Пароли не совпадают!", BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         }
     }

@@ -11,6 +11,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import ru.tinkoff.decoro.MaskImpl;
 import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser;
 import ru.tinkoff.decoro.slots.PredefinedSlots;
@@ -18,11 +22,21 @@ import ru.tinkoff.decoro.slots.Slot;
 import ru.tinkoff.decoro.watchers.FormatWatcher;
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
 
-public class Function {
+public class Function extends AppCompatActivity{
+    public static boolean FLAG_CONNECTING_NETWORK;
     //functions for open activity
     public static void openSignin(Context context) {
-        Intent intent = new Intent(context, SigninActivity.class);
+        Intent intent = new Intent(context, Signin.class);
         context.startActivity(intent);
+    }
+
+    //create AlertDialog
+    public void createDialog(){
+        FragmentManager manager = getSupportFragmentManager();
+        getSupportFragmentManager();
+        Dialog myDialogFragment = new Dialog();
+        FragmentTransaction transaction = manager.beginTransaction();
+        myDialogFragment.show(transaction, "dialog");
     }
 
     public static void openSignup(Context context) {
@@ -30,13 +44,10 @@ public class Function {
         context.startActivity(intent);
     }
 
-    public static void openUserActivity(Context context) {
-        Intent intent = new Intent(context, UserActivity.class);
-        context.startActivity(intent);
-    }
-
     //function for create toast
+    //Заменить тосты на снеки!!!!!!!!!!!
     public static void createToast(Activity activity, String text){
+//        Snackbar.make(view, text, BaseTransientBottomBar.LENGTH_SHORT).show();
         Toast toast = Toast.makeText( activity, text, LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();

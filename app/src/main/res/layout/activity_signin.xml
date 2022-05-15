@@ -4,19 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SigninActivity"
+    tools:context=".Signin"
     android:background="@color/white">
 
     <LinearLayout
-        android:id="@+id/header_signup_page"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:gravity="center"
         android:orientation="horizontal"
+        android:visibility="visible"
         tools:ignore="MissingConstraints">
 
         <LinearLayout
-            android:id="@+id/topik_start_page"
             android:layout_width="250dp"
             android:layout_height="40dp"
             android:background="@drawable/shape_for_head"
@@ -30,7 +29,7 @@
                 android:text="Авторизация"
                 android:textColor="@color/white"
                 android:textSize="10pt"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
 
         </LinearLayout>
@@ -38,23 +37,24 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/backgroun_img"
         android:layout_width="match_parent"
         android:layout_height="410dp"
         android:layout_marginTop="400dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bacground_img"/>
+        app:srcCompat="@drawable/bacground_img" />
 
     <LinearLayout
-        android:id="@+id/body_start_page"
+        android:id="@+id/body_signin_page"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="100dp"
         android:gravity="center"
         android:orientation="vertical"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -99,8 +99,8 @@
                 android:ems="10"
                 android:hint="password"
                 android:inputType="textPassword"
-                app:passwordToggleEnabled="true"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                app:passwordToggleEnabled="true" />
         </LinearLayout>
 
         <Button
@@ -111,7 +111,7 @@
             android:backgroundTint="@color/green"
             android:text="Вход"
             android:textSize="5pt"
-            app:cornerRadius="10dp"/>
+            app:cornerRadius="10dp" />
 
         <TextView
             android:id="@+id/textCreateNewAccount"
