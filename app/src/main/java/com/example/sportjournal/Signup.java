@@ -117,7 +117,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     String id = mAuth.getUid();
-                                    User user = new User(id, last_name, first_name, second_name, email, gender, birthday);
+                                    User user = new User(id, last_name, first_name, second_name, email,"" ,gender, birthday, "");
                                     users.push().setValue(user);
                                     Snackbar.make(findViewById(R.id.body_signup_page), "Successful", BaseTransientBottomBar.LENGTH_SHORT).show();
                                 } else {

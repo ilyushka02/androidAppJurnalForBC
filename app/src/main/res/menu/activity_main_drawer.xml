@@ -8,12 +8,12 @@
         android:visible="true">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/user_img_menu"
-            android:title="@string/menu_profile" />
+            android:icon="@drawable/likes"
+            android:title="@string/menu_your_trainings"/>
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/likes"
-            android:title="@string/menu_your_trainings" />
+            android:icon="@drawable/user_img_menu"
+            android:title="@string/menu_profile"/>
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/search_img"
