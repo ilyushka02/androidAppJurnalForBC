@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.sportjournal.AllerDialogs.ErrorConnectorInNetwork;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -83,7 +84,7 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
     public void createDialog(){
         FragmentManager manager = getSupportFragmentManager();
         getSupportFragmentManager();
-        Dialog myDialogFragment = new Dialog();
+        ErrorConnectorInNetwork myDialogFragment = new ErrorConnectorInNetwork();
         FragmentTransaction transaction = manager.beginTransaction();
         myDialogFragment.show(transaction, "dialog");
     }

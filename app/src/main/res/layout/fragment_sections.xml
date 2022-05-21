@@ -17,64 +17,56 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/bacground_img" />
 
-    <TableLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="204dp"
-        tools:layout_editor_absoluteY="178dp">
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="1dp">
 
-        <TableRow
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:paddingTop="5dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="80dp"
-                android:text="@string/section"
-                android:textSize="20dp"
-                android:textColor="@color/green"
-                />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="80dp"
-                android:text="@string/liked"
-                android:textSize="20dp"/>
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_marginTop="10dp">
-
-            <ScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="50dp"
+                    android:background="@drawable/shape_for_field"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
 
-                    <LinearLayout
-                        android:id="@+id/body_start_page"
-                        android:layout_width="290dp"
-                        android:layout_height="180dp"
-                        android:background="@drawable/shape_for_field"
-                        android:gravity="center"
-                        android:orientation="vertical"/>
+                    <EditText
+                        android:id="@+id/editTextTextPersonName"
+                        android:layout_width="340dp"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/white"
+                        android:ems="10"
+                        android:hint="Поиск"
+                        android:inputType="textPersonName" />
 
+                    <ImageButton
+                        android:id="@+id/imageButton2"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+
+                        android:scaleType="centerInside"
+                        android:src="@drawable/search_img" />
                 </LinearLayout>
-            </ScrollView>
-        </TableRow>
-    </TableLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.sportjournal.AllerDialogs.ErrorConnectorInNetwork;
+
 import ru.tinkoff.decoro.MaskImpl;
 import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser;
 import ru.tinkoff.decoro.slots.PredefinedSlots;
@@ -34,7 +36,7 @@ public class Function extends AppCompatActivity{
     public void createDialog(){
         FragmentManager manager = getSupportFragmentManager();
         getSupportFragmentManager();
-        Dialog myDialogFragment = new Dialog();
+        ErrorConnectorInNetwork myDialogFragment = new ErrorConnectorInNetwork();
         FragmentTransaction transaction = manager.beginTransaction();
         myDialogFragment.show(transaction, "dialog");
     }

@@ -11,22 +11,16 @@
             android:icon="@drawable/likes"
             android:title="@string/menu_your_trainings"/>
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_profile"
             android:icon="@drawable/user_img_menu"
             android:title="@string/menu_profile"/>
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_contacts"
             android:icon="@drawable/search_img"
-            android:title="@string/search_hint" />
+            android:title="Контакты" />
         <item
             android:id="@+id/nav_home1"
             android:icon="@drawable/settings"
             android:title="@string/menu_setings" />
-    </group>
-    <group>
-        <item
-            android:id="@+id/exit"
-            android:icon="@drawable/exit"
-            android:title="@string/menu_exit"/>
     </group>
 </menu>

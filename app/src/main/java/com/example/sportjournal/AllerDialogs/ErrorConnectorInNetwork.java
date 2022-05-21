@@ -1,4 +1,4 @@
-package com.example.sportjournal;
+package com.example.sportjournal.AllerDialogs;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -11,7 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class Dialog extends AppCompatDialogFragment {
+import com.example.sportjournal.Function;
+import com.example.sportjournal.R;
+import com.example.sportjournal.Signin;
+
+public class ErrorConnectorInNetwork extends AppCompatDialogFragment {
     Function f = new Function();
     Signin s = new Signin();
     @NonNull

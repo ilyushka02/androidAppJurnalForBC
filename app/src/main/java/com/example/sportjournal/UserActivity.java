@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,12 +37,13 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 
-public class UserActivity extends AppCompatActivity {
+public class UserActivity extends AppCompatActivity{
     private FirebaseAuth mAuth;
     private DatabaseReference users;
     StorageReference storageRef;
     private String USER_KEY = "USER";
     private AppBarConfiguration mAppBarConfiguration;
+    private Button btn_update;
     private TextView lastName, firstName, secondName;
     private ImageView avatar1, avatar2;
     private String userID;
@@ -60,7 +62,7 @@ public class UserActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_profile, R.id.nav_contacts)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -75,7 +77,8 @@ public class UserActivity extends AppCompatActivity {
         lastName = (TextView) headerView.findViewById(R.id.userLastName);
         secondName = (TextView) headerView.findViewById(R.id.userSecondName);
         avatar1 = (ImageView) headerView.findViewById(R.id.userAvatar);
-        avatar2 =  findViewById(R.id.UserActivityAvatar);
+        avatar2 = findViewById(R.id.UserActivityAvatar);
+        btn_update = (Button) headerView.findViewById(R.id.updateProfile);
         mAuth = FirebaseAuth.getInstance();
         users = FirebaseDatabase.getInstance().getReference(USER_KEY);
         //Получение id авторизованного пользователя
@@ -120,11 +123,16 @@ public class UserActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    public void onClick(View view) {
+    public void openGallery() {
         Intent intent = new Intent();
         intent.setType("image/");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, 1);
+//        FragmentManager manager = getSupportFragmentManager();
+//        getSupportFragmentManager();
+//        UploadImageDialog myDialogFragment = new UploadImageDialog();
+//        FragmentTransaction transaction = manager.beginTransaction();
+//        myDialogFragment.show(transaction, "dialog");
     }
 
     @Override
@@ -133,7 +141,7 @@ public class UserActivity extends AppCompatActivity {
         if ((requestCode == 1) && (data != null) && (data.getData() != null)){
             if (resultCode == RESULT_OK){
                 avatar1.setImageURI(data.getData());
-                avatar2.setImageURI(data.getData());
+                //avatar2.setImageURI(data.getData());
                 uploadImg();
             }
         }
@@ -155,8 +163,32 @@ public class UserActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
                 uploadPath = task.getResult();
-                //save user
+                saveUser();
             }
         });
+    }
+
+    private void saveUser() {
+
+    }
+    //button редактирование профиля
+    public void onClick(View view) {
+
+    }
+
+    public void OpenAddress(View view) {
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                Uri.parse("http://maps.google.com/maps?daddr=Южное ш., 2Г, Нижний Новгород, Россия"));
+        startActivity(intent);
+    }
+
+    public void openPhone1(View view) {
+        String dial = "tel:+7(910)880-87-98";
+        startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(dial)));
+    }
+
+    public void openPhone2(View view) {
+        String dial = "tel:+7(910)880-96-47";
+        startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(dial)));
     }
 }

@@ -8,7 +8,6 @@
 
 
     <ImageView
-        android:id="@+id/imageView3"
         android:layout_width="match_parent"
         android:layout_height="410dp"
         android:layout_marginTop="400dp"
@@ -20,7 +19,6 @@
         app:srcCompat="@drawable/bacground_img" />
 
     <ScrollView
-        android:id="@+id/UserActivityScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="5dp">
@@ -39,31 +37,14 @@
                     android:layout_height="match_parent"
                     android:gravity="center">
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/UserActivityAvatar"
-                        android:layout_width="200dp"
-                        android:layout_height="200dp"
-                        android:background="@drawable/shape_for_user_icon"
-                        android:src="@drawable/user_icon"
-                        app:civ_border_color="@color/green"
-                        app:civ_border_width="5dp"/>
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="300dp"
+                        android:src="@drawable/fitnes1"
+                        android:scaleType="centerInside"/>
 
                 </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <Button
-                    android:id="@+id/updateProfile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Редактировать профиль"
-                    android:textColor="@color/green"
-                    android:textSize="12dp"
-                    app:backgroundTint="@color/white"
-                    android:onClick="onClick"/>
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
@@ -71,6 +52,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
+                    android:background="@drawable/shape_for_field"
                     android:padding="5dp"
                     android:layout_marginTop="10dp"
                     android:orientation="vertical">
@@ -89,24 +71,37 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="18dp"
-                        android:text="Насурллаев Илья Евгеньевич" />
-
-                    <TextView
-                        android:id="@+id/textView15"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
                         android:layout_marginBottom="20dp"
-                        android:textSize="18dp"
-                        android:text="02.08. 2002" />
-
+                        android:text="ФизКульт" />
                     <TextView
                         android:id="@+id/textView18"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
                         android:textSize="18dp"
-                        android:text="пол: мужской" />
+                        android:text="Время работы в будни: 07:00-23:00;\n\nВыходные и праздничные дни: 09:00-22:00\n\nРабота детской комнаты в будни: 17:00-21:00; Выходные: 11:00-17:00" />
+
+
+                    <TextView
+                        android:id="@+id/textView15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:textSize="18dp"
+                        android:textColor="@color/hiper_linc_color"
+                        android:text="Южное ш., 2Г, Нижний Новгород, Россия"
+                        android:onClick="OpenAddress"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/shape_for_field"
+                    android:padding="5dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/textView16"
@@ -117,23 +112,35 @@
                         android:textSize="18dp"
                         android:text="Контакты"/>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
                     <TextView
                         android:id="@+id/textView14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/hiper_linc_color"
                         android:textSize="18dp"
-                        android:text="mr.nasurllaev@mail.ru"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="50dp"
+                        android:text="+7(910)880-87-98"
+                        android:onClick="openPhone1"
                         android:layout_marginBottom="20dp"/>
 
                     <TextView
                         android:id="@+id/textView13"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/hiper_linc_color"
                         android:textSize="18dp"
-                        android:text="89108809647"
+                        android:text="+7(910)880-96-47"
+                        android:onClick="openPhone2"
                         android:layout_marginBottom="20dp"/>
                 </LinearLayout>
-
+                </LinearLayout>
             </TableLayout>
 
         </LinearLayout>

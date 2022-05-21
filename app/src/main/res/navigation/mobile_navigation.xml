@@ -8,18 +8,18 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.sportjournal.ui.home.HomeFragment"
-        android:label="@string/menu_home"
+        android:label="Главная"
         tools:layout="@layout/fragment_sections" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_profile"
         android:name="com.example.sportjournal.ui.profile.ProfileFragment"
-        android:label="@string/menu_gallery"
+        android:label="Профиль"
         tools:layout="@layout/fragment_profile" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.sportjournal.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_contacts"
+        android:name="com.example.sportjournal.ui.contacts.ContactFragment"
+        android:label="Контакты"
+        tools:layout="@layout/fragment_contact" />
 </navigation>
