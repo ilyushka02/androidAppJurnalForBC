@@ -1,5 +1,6 @@
 package com.example.sportjournal;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -21,6 +22,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.sportjournal.db.User;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,17 +40,17 @@ import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 
-public class UserActivity extends AppCompatActivity{
+public class UserActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference users;
-    StorageReference storageRef;
-    private String USER_KEY = "USER";
+    private StorageReference storageRef;
     private AppBarConfiguration mAppBarConfiguration;
     private Button btn_update;
     private TextView lastName, firstName, secondName;
     private ImageView avatar1, avatar2;
-    private String userID;
+    public static String userID;
     private Uri uploadPath;
+    private Fragment profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,16 +75,17 @@ public class UserActivity extends AppCompatActivity{
 
 
     private void initialization() {
+        // подключаем FragmentManager
+        profile = getFragmentManager().findFragmentById(R.id.nav_profile);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
         firstName = (TextView) headerView.findViewById(R.id.userFirstName);
         lastName = (TextView) headerView.findViewById(R.id.userLastName);
         secondName = (TextView) headerView.findViewById(R.id.userSecondName);
         avatar1 = (ImageView) headerView.findViewById(R.id.userAvatar);
-        avatar2 = findViewById(R.id.UserActivityAvatar);
         btn_update = (Button) headerView.findViewById(R.id.updateProfile);
         mAuth = FirebaseAuth.getInstance();
-        users = FirebaseDatabase.getInstance().getReference(USER_KEY);
+        users = FirebaseDatabase.getInstance().getReference(User.USER_KEY);
         //Получение id авторизованного пользователя
         userID = mAuth.getCurrentUser().getUid();
         storageRef = FirebaseStorage.getInstance().getReference(userID);
@@ -93,10 +96,10 @@ public class UserActivity extends AppCompatActivity{
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.child(userID).getValue(User.class);
-                        Picasso.get().load(user.imageURI).into(avatar1);
-                        firstName.setText(user.F_Name);
-                        lastName.setText(user.L_Name);
-                        secondName.setText(user.S_Name);
+                Picasso.get().load(user.imageURI).into(avatar1);
+                firstName.setText(user.F_Name);
+                lastName.setText(user.L_Name);
+                secondName.setText(user.S_Name);
             }
 
             @Override
@@ -126,31 +129,25 @@ public class UserActivity extends AppCompatActivity{
         intent.setType("image/");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, 1);
-//        FragmentManager manager = getSupportFragmentManager();
-//        getSupportFragmentManager();
-//        UploadImageDialog myDialogFragment = new UploadImageDialog();
-//        FragmentTransaction transaction = manager.beginTransaction();
-//        myDialogFragment.show(transaction, "dialog");
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if ((requestCode == 1) && (data != null) && (data.getData() != null)){
-            if (resultCode == RESULT_OK){
+        if ((requestCode == 1) && (data != null) && (data.getData() != null)) {
+            if (resultCode == RESULT_OK) {
                 avatar1.setImageURI(data.getData());
-                //avatar2.setImageURI(data.getData());
                 uploadImg();
             }
         }
     }
 
-    private void uploadImg(){
+    private void uploadImg() {
         Bitmap bitmap = ((BitmapDrawable) avatar1.getDrawable()).getBitmap();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] bytes = baos.toByteArray();
-        StorageReference usRef = storageRef.child("image"+ System.currentTimeMillis());
+        StorageReference usRef = storageRef.child("image" + System.currentTimeMillis());
         UploadTask up = usRef.putBytes(bytes);
         Task<Uri> task = up.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override
@@ -168,11 +165,6 @@ public class UserActivity extends AppCompatActivity{
 
     private void saveUser() {
         users.child(userID).child("imageURI").setValue(uploadPath.toString());
-    }
-
-    //button редактирование профиля
-    public void onClick(View view) {
-
     }
 
     public void OpenAddress(View view) {

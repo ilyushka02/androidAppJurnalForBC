@@ -1,4 +1,4 @@
-package com.example.sportjournal;
+package com.example.sportjournal.db;
 
 public class User {
     public static String USER_KEY = "USER";
@@ -16,7 +16,7 @@ public class User {
         this.phone = phone;
         this.gender = gender;
         this.data_birthday = data_birthday;
-        imageURI = imageURI;
+        this.imageURI = imageURI;
     }
 
 }
