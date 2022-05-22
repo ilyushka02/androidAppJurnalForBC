@@ -95,8 +95,8 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/add_user"
-                    app:backgroundTint="@color/green"/>
+                    app:backgroundTint="@color/green"
+                    app:srcCompat="@drawable/add_user" />
             </LinearLayout>
 
             <LinearLayout
@@ -126,7 +126,7 @@
                     android:gravity="center_horizontal"
                     android:text="Как можно к вам обращаться?"
                     android:textSize="@dimen/sizeTextViewSignUp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/textLastName"
@@ -153,8 +153,8 @@
                     android:id="@+id/textSecondName"
                     android:layout_width="@dimen/widthTextEditSignUp"
                     android:layout_height="@dimen/heightTextEditSignUp"
-                    android:backgroundTint="@color/green"
                     android:layout_marginBottom="25dp"
+                    android:backgroundTint="@color/green"
                     android:ems="10"
                     android:hint="Иванович"
                     android:inputType="text"
@@ -189,16 +189,27 @@
                     android:textStyle="bold"/>
 
 
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgProfile"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/shape_for_user_icon"
+                    android:src="@drawable/user_icon"
+                    app:civ_border_color="@color/green"
+                    app:civ_border_width="5dp"/>
+
                 <EditText
-                    android:id="@+id/birthday"
-                    android:layout_width="@dimen/widthTextEditSignUp"
-                    android:layout_height="@dimen/heightTextEditSignUp"
-                    android:layout_marginTop="15dp"
-                    android:backgroundTint="@color/green"
-                    android:ems="10"
-                    android:hint="Дата Рождения"
-                    android:inputType="date"
-                    android:textSize="@dimen/sizeTextEditSignUp" />
+                        android:id="@+id/birthday"
+                        android:layout_width="@dimen/widthTextEditSignUp"
+                        android:layout_height="@dimen/heightTextEditSignUp"
+                        android:backgroundTint="@color/green"
+                        android:ems="10"
+                        android:hint="Дата Рождения"
+                        android:inputType="date"
+                        android:textSize="@dimen/sizeTextEditSignUp" />
+
 
                 <TextView
                     android:id="@+id/textView7"
@@ -229,7 +240,6 @@
                     android:id="@+id/email"
                     android:layout_width="@dimen/widthTextEditSignUp"
                     android:layout_height="@dimen/heightTextEditSignUp"
-                    android:layout_marginBottom="25dp"
                     android:backgroundTint="@color/green"
                     android:ems="10"
                     android:hint="user@email.ru"
@@ -237,7 +247,18 @@
                     android:textSize="@dimen/sizeTextEditSignUp" />
 
 
-
+                <Button
+                    android:id="@+id/takeImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/green"
+                    android:textSize="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="25dp"
+                    app:backgroundTint="@color/white"
+                    android:text="выбрать изображение для профиля"
+                    android:onClick="setDate"/>
             </LinearLayout>
 
             <LinearLayout

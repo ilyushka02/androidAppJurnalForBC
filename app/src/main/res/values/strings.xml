@@ -20,4 +20,7 @@
     <string name="menu_exit">Выход</string>
 
     <string name="error_connect">Ошибка соединения.\nПроверте свое подключение к инетернету и повторите попытку!</string>
+    <string name="title_activity_section_v2">SectionV2</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
 </resources>

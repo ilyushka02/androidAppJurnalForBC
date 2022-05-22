@@ -1,15 +1,25 @@
 package com.example.sportjournal;
 
+import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -18,16 +28,25 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
+import java.util.Calendar;
 
 
 public class Signup extends AppCompatActivity implements View.OnClickListener {
     private EditText et_lastName, et_firsName, et_secondName, et_dateBirthday, et_email, et_password1, et_password2;
+    private ImageView avatar;
+    private Calendar date = Calendar.getInstance();
     private Spinner gender_list;
     private FirebaseAuth mAuth;
     private FirebaseDatabase db;
     private DatabaseReference users;
     private String USER_KEY = "USER";
     private int FLAG_CHEKED = 0;
+    private Uri uploadPath;
+    private  StorageReference storageRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +68,13 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         gender_list = findViewById(R.id.gender);
         ImageButton imgBtn_createUser = findViewById(R.id.user_create);
         Button btn_back = findViewById(R.id.button_back);
+        Button take_img = findViewById(R.id.takeImg);
         //Заполняем выпадаюдщий список
         Function.createArrayForSpinner(gender_list, this);
         //Создаем маску для дня рождения
         Function.createPatternForDateBirthday(et_dateBirthday);
         //Находим элементы и устанавливаем на них слушатель нажатий
+        et_dateBirthday.setOnClickListener(this);
         btn_back.setOnClickListener(this);
         imgBtn_createUser.setOnClickListener(this);
         //Подключаем необходимые функции firebase
@@ -72,7 +93,80 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
             case R.id.user_create:
                 createUser();
                 break;
+            case R.id.birthday:
+                setDate(v);
+                break;
         }
+    }
+
+    // отображаем диалоговое окно для выбора даты
+    public void setDate(View v) {
+        new DatePickerDialog( Signup.this, d,
+                date.get(Calendar.YEAR),
+                date.get(Calendar.MONTH),
+                date.get(Calendar.DAY_OF_MONTH))
+                .show();
+    }
+
+    // установка обработчика выбора даты
+    DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            date.set(Calendar.YEAR, year);
+            date.set(Calendar.MONTH, monthOfYear);
+            date.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            setInitialDate();
+        }
+    };
+
+
+    private void setInitialDate() {
+        et_dateBirthday.setText(DateUtils.formatDateTime(this,
+                date.getTimeInMillis(),
+                DateUtils.FORMAT_NUMERIC_DATE| DateUtils.FORMAT_SHOW_YEAR));
+    }
+
+
+    public void openGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 1);
+//        FragmentManager manager = getSupportFragmentManager();
+//        getSupportFragmentManager();
+//        UploadImageDialog myDialogFragment = new UploadImageDialog();
+//        FragmentTransaction transaction = manager.beginTransaction();
+//        myDialogFragment.show(transaction, "dialog");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if ((requestCode == 1) && (data != null) && (data.getData() != null)){
+            if (resultCode == RESULT_OK){
+                avatar.setImageURI(data.getData());
+                uploadImg();
+            }
+        }
+    }
+
+    private void uploadImg(){
+        Bitmap bitmap = ((BitmapDrawable) avatar.getDrawable()).getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] bytes = baos.toByteArray();
+        StorageReference usRef = storageRef.child("image"+ System.currentTimeMillis());
+        UploadTask up = usRef.putBytes(bytes);
+        Task<Uri> task = up.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                return usRef.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                uploadPath = task.getResult();
+            }
+        });
     }
 
     protected void createUser() {
@@ -118,7 +212,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                                 if (task.isSuccessful()) {
                                     String id = mAuth.getUid();
                                     User user = new User(id, last_name, first_name, second_name, email,"" ,gender, birthday, "");
-                                    users.push().setValue(user);
+                                    users.child(id).setValue(user);
                                     Snackbar.make(findViewById(R.id.body_signup_page), "Successful", BaseTransientBottomBar.LENGTH_SHORT).show();
                                 } else {
                                     Snackbar.make(findViewById(R.id.body_signup_page), "Такой пользователь уже существует!", BaseTransientBottomBar.LENGTH_SHORT).show();

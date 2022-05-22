@@ -34,6 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 
@@ -70,6 +71,7 @@ public class UserActivity extends AppCompatActivity{
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
+
     private void initialization() {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
@@ -90,15 +92,11 @@ public class UserActivity extends AppCompatActivity{
         users.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                    User user = ds.getValue(User.class);
-                    if (user.id.equals(userID)) {
+                User user = snapshot.child(userID).getValue(User.class);
+                        Picasso.get().load(user.imageURI).into(avatar1);
                         firstName.setText(user.F_Name);
                         lastName.setText(user.L_Name);
                         secondName.setText(user.S_Name);
-                    }
-                }
-
             }
 
             @Override
@@ -123,7 +121,7 @@ public class UserActivity extends AppCompatActivity{
                 || super.onSupportNavigateUp();
     }
 
-    public void openGallery() {
+    public void openGallery(View view) {
         Intent intent = new Intent();
         intent.setType("image/");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -169,8 +167,9 @@ public class UserActivity extends AppCompatActivity{
     }
 
     private void saveUser() {
-
+        users.child(userID).child("imageURI").setValue(uploadPath.toString());
     }
+
     //button редактирование профиля
     public void onClick(View view) {
 
