@@ -1,9 +1,6 @@
 package com.example.sportjournal;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -16,11 +13,9 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sportjournal.db.User;
-import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -30,9 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
-import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 
 
@@ -69,7 +62,6 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         gender_list = findViewById(R.id.gender);
         ImageButton imgBtn_createUser = findViewById(R.id.user_create);
         Button btn_back = findViewById(R.id.button_back);
-        Button take_img = findViewById(R.id.takeImg);
         //Заполняем выпадаюдщий список
         Function.createArrayForSpinner(gender_list, this);
         //Создаем маску для дня рождения
@@ -124,50 +116,6 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         et_dateBirthday.setText(DateUtils.formatDateTime(this,
                 date.getTimeInMillis(),
                 DateUtils.FORMAT_NUMERIC_DATE| DateUtils.FORMAT_SHOW_YEAR));
-    }
-
-
-    public void openGallery() {
-        Intent intent = new Intent();
-        intent.setType("image/");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, 1);
-//        FragmentManager manager = getSupportFragmentManager();
-//        getSupportFragmentManager();
-//        UploadImageDialog myDialogFragment = new UploadImageDialog();
-//        FragmentTransaction transaction = manager.beginTransaction();
-//        myDialogFragment.show(transaction, "dialog");
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if ((requestCode == 1) && (data != null) && (data.getData() != null)){
-            if (resultCode == RESULT_OK){
-                avatar.setImageURI(data.getData());
-                uploadImg();
-            }
-        }
-    }
-
-    private void uploadImg(){
-        Bitmap bitmap = ((BitmapDrawable) avatar.getDrawable()).getBitmap();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] bytes = baos.toByteArray();
-        StorageReference usRef = storageRef.child("image"+ System.currentTimeMillis());
-        UploadTask up = usRef.putBytes(bytes);
-        Task<Uri> task = up.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-            @Override
-            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                return usRef.getDownloadUrl();
-            }
-        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                uploadPath = task.getResult();
-            }
-        });
     }
 
     protected void createUser() {

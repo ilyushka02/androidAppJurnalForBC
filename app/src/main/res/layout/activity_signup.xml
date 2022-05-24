@@ -189,17 +189,6 @@
                     android:textStyle="bold"/>
 
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imgProfile"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/shape_for_user_icon"
-                    android:src="@drawable/user_icon"
-                    app:civ_border_color="@color/green"
-                    app:civ_border_width="5dp"/>
-
                 <EditText
                         android:id="@+id/birthday"
                         android:layout_width="@dimen/widthTextEditSignUp"
@@ -242,23 +231,12 @@
                     android:layout_height="@dimen/heightTextEditSignUp"
                     android:backgroundTint="@color/green"
                     android:ems="10"
+                    android:layout_marginBottom="20dp"
                     android:hint="user@email.ru"
                     android:inputType="textEmailAddress"
                     android:textSize="@dimen/sizeTextEditSignUp" />
 
 
-                <Button
-                    android:id="@+id/takeImg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/green"
-                    android:textSize="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="25dp"
-                    app:backgroundTint="@color/white"
-                    android:text="выбрать изображение для профиля"
-                    android:onClick="setDate"/>
             </LinearLayout>
 
             <LinearLayout

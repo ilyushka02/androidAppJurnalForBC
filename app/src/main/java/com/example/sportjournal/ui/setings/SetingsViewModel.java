@@ -1,16 +1,16 @@
-package com.example.sportjournal.ui.contacts;
+package com.example.sportjournal.ui.setings;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class ContactViewModel extends ViewModel {
+public class SetingsViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public ContactViewModel() {
+    public SetingsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is contact");
+        mText.setValue("This is slideshow fragment");
     }
 
     public LiveData<String> getText() {

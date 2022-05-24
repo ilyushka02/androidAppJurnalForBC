@@ -62,8 +62,7 @@
                     android:text="Редактировать профиль"
                     android:textColor="@color/green"
                     android:textSize="12dp"
-                    app:backgroundTint="@color/white"
-                    android:onClick="openGallery"/>
+                    app:backgroundTint="@color/white"/>
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />

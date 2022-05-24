@@ -1,9 +1,11 @@
 package com.example.sportjournal.ui.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.sportjournal.R;
+import com.example.sportjournal.UpdateActivity;
 import com.example.sportjournal.UserActivity;
 import com.example.sportjournal.db.User;
 import com.google.firebase.database.DataSnapshot;
@@ -21,12 +24,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment{
     private DatabaseReference users;
     private ProfileViewModel galleryViewModel;
     TextView username, birthday, gender, email, phone;
+    Button update;
     ImageView avatar;
     View root;
+    User user;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -46,19 +51,27 @@ public class ProfileFragment extends Fragment {
         email = (TextView) root.findViewById(R.id.ProfileEmail);
         phone = (TextView) root.findViewById(R.id.ProfilePhone);
         avatar = (ImageView) root.findViewById(R.id.ProfileAvatar);
+        update = (Button) root.findViewById(R.id.updateProfile);
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivity();
+            }
+        });
+    }
+
+    private void openActivity() {
+        Intent intent = new Intent(this.getActivity(), UpdateActivity.class);
+        startActivity(intent);
     }
 
     private void getDataBase() {
         users.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User user = snapshot.child(UserActivity.userID).getValue(User.class);
-                Picasso.get().load(user.imageURI).into(avatar);
-                if (user.S_Name.equals("не указано")) {
-                    username.setText(user.L_Name + " " + user.F_Name);
-                } else {
-                    username.setText(user.L_Name + " " + user.F_Name + " " + user.S_Name);
-                }
+                user = snapshot.child(UserActivity.userID).getValue(User.class);
+                if (!user.imageURI.isEmpty()) Picasso.get().load(user.imageURI).into(avatar);
+                username.setText(user.L_Name + " " + user.F_Name + " " + user.S_Name);
                 birthday.setText("дата рождения: " + user.data_birthday);
                 gender.setText("пол: " + user.gender);
                 email.setText(user.email);
@@ -71,5 +84,4 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
-
 }
