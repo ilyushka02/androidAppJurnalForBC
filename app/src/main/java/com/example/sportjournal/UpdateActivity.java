@@ -21,7 +21,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.example.sportjournal.AllerDialogs.UploadImageDialog;
 import com.example.sportjournal.db.User;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -98,10 +101,10 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.Update_saveUser:
                 saveUser();
                 break;
-            case R.id.Update_back:
-                finish();
-                break;
         }
+    }
+    public void back(View view) {
+        finish();
     }
 
     //Получение даннхы из БД
@@ -218,8 +221,12 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
         if (uploadPath != null) {
             if (!user.image.equals(uploadPath.toString()))
                 imageURI = uploadPath.toString();
-            else imageURI = user.image;
         }
+        else {
+            createDialog();
+            imageURI = user.image;
+        }
+
         User user = new User(UserActivity.userID, last_name, first_name, second_name, email, str_phone, str_gender, str_birthday, imageURI);
         users.child(UserActivity.userID).setValue(user);
 
@@ -228,4 +235,12 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
         toast.show();
     }
 
+    //Создания alert-диалога с сообщением ошибки загрузки
+    public void createDialog() {
+        FragmentManager manager = getSupportFragmentManager();
+        getSupportFragmentManager();
+        UploadImageDialog myDialogFragment = new UploadImageDialog();
+        FragmentTransaction transaction = manager.beginTransaction();
+        myDialogFragment.show(transaction, "dialog");
+    }
 }

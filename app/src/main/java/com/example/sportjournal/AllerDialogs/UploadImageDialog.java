@@ -3,7 +3,6 @@ package com.example.sportjournal.AllerDialogs;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,22 +19,14 @@ public class UploadImageDialog extends AppCompatDialogFragment {
     @Override
     public android.app.Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Внимание!")
+        builder.setTitle("Изображение не было загружено!")
                 .setIcon(R.drawable.warning_icon)
-                .setMessage("Вы действительно хотите изменить фото профиля?")
-                .setPositiveButton("Да", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-
-            }
-        });
-        builder.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                Toast.makeText(getActivity(), "OK!", Toast.LENGTH_LONG)
-                        .show();
-            }
-        });
-        builder.setCancelable(true);;
-
+                .setMessage("Плохое соединение с интернетом.")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
         return builder.create();
     }
 }
