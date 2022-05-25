@@ -1,14 +1,18 @@
 package com.example.sportjournal;
 
+import static android.widget.Toast.LENGTH_SHORT;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,78 +33,82 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
     private EditText field_login, filed_password;
     private FirebaseAuth mAuth;
     private String login, password;
-    Function f = new Function();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_signin);
-        initialization_component();
+        initialization();
     }
 
-    private void initialization_component() {
-        //Search elements on activity by id
+    //Инициализация компонентов
+    private void initialization() {
+        //Поиск элементов по id
         btn_back = findViewById(R.id.signin_btn);
         textView_createAcc = findViewById(R.id.textCreateNewAccount);
         field_login = findViewById(R.id.textFieldLogin);
         filed_password = findViewById(R.id.textFieldPassword);
-        //firebase object initialization
+        //Инициализация FirebaseAuthentication
         mAuth = FirebaseAuth.getInstance();
-        //Find elements and set onClick listener
+        //Установка слушателей нажатия
         btn_back.setOnClickListener(this);
         textView_createAcc.setOnClickListener(this);
+        //Проверка состояния сети
         isNetworkAvailable(this);
     }
 
-    //check connection network
+    //Обработчик нажатий
+    @Override
+    public void onClick(View v) {
+        if (Function.FLAG_CONNECTING_NETWORK) {
+            switch (v.getId()) {
+                case R.id.signin_btn:
+                    authorization();
+                    break;
+                case R.id.textCreateNewAccount:
+                    Function.openSignup(this);
+                    break;
+            }
+        } else {
+            createDialog();
+        }
+    }
+
+
+    //Проверка состояния сети
     public boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivity = (ConnectivityManager) context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        // get network info for all of the data interfaces (e.g. WiFi, 3G, LTE, etc.)
+        //(WiFi, 3G, LTE, etc.)
         NetworkInfo[] info = connectivity.getAllNetworkInfo();
 
-        // make sure that there is at least one interface to test against
         if (info != null) {
-            // iterate through the interfaces
             for (int i = 0; i < info.length; i++) {
-                // check this interface for a connected state
                 if (info[i].getState() == NetworkInfo.State.CONNECTED) {
-                    f.FLAG_CONNECTING_NETWORK = true;
+                    Function.FLAG_CONNECTING_NETWORK = true;
                     return true;
                 } else {
-                    f.FLAG_CONNECTING_NETWORK = false;
+                    Function.FLAG_CONNECTING_NETWORK = false;
                     createDialog();
                     return false;
                 }
             }
         }
-        f.FLAG_CONNECTING_NETWORK = false;
+        Function.FLAG_CONNECTING_NETWORK = false;
         return false;
     }
 
-    //create AlertDialog
-    public void createDialog(){
+    //Создания alert-диалога с сообщением ошибки подключения
+    public void createDialog() {
         FragmentManager manager = getSupportFragmentManager();
         getSupportFragmentManager();
         ErrorConnectorInNetwork myDialogFragment = new ErrorConnectorInNetwork();
         FragmentTransaction transaction = manager.beginTransaction();
         myDialogFragment.show(transaction, "dialog");
     }
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.signin_btn:
-//                openUserActivity(this);
-                authorization();
-                break;
-            case R.id.textCreateNewAccount:
-                Function.openSignup(this);
-                break;
-        }
-    }
 
+    //Авторизация
     private void authorization() {
         login = field_login.getText().toString().trim();
         password = filed_password.getText().toString().trim();
@@ -115,13 +123,16 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
                                 openUserActivity(Signin.this);
                                 finish();
                             } else {
-                                Snackbar.make(findViewById(R.id.body_signin_page), "Не правильный логин или пароль!", BaseTransientBottomBar.LENGTH_SHORT).show();
+                                Toast toast = Toast.makeText(Signin.this, "Не правильный логин или пароль!", LENGTH_SHORT);
+                                toast.setGravity(Gravity.CENTER, 0, 0);
+                                toast.show();
                             }
                         }
                     });
         }
     }
 
+    //Переход  к пользовательской Activity
     private void openUserActivity(Context context) {
         Intent intent = new Intent(context, UserActivity.class);
         context.startActivity(intent);

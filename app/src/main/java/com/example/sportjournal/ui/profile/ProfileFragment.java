@@ -27,11 +27,11 @@ import com.squareup.picasso.Picasso;
 public class ProfileFragment extends Fragment{
     private DatabaseReference users;
     private ProfileViewModel galleryViewModel;
-    TextView username, birthday, gender, email, phone;
-    Button update;
-    ImageView avatar;
+    private TextView username, birthday, gender, email, phone;
+    private Button update;
+    private ImageView avatar;
     View root;
-    User user;
+    private User user;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -42,9 +42,9 @@ public class ProfileFragment extends Fragment{
         getDataBase();
         return root;
     }
-
+    //Инициализация компонентов
     private void initialization() {
-        users = FirebaseDatabase.getInstance().getReference(User.USER_KEY);
+        //Поиск элементов по id
         username = (TextView) root.findViewById(R.id.ProfileUserName);
         birthday = (TextView) root.findViewById(R.id.ProfileBirthday);
         gender = (TextView) root.findViewById(R.id.ProfileGender);
@@ -52,19 +52,24 @@ public class ProfileFragment extends Fragment{
         phone = (TextView) root.findViewById(R.id.ProfilePhone);
         avatar = (ImageView) root.findViewById(R.id.ProfileAvatar);
         update = (Button) root.findViewById(R.id.updateProfile);
+        //Инициализация элементов firebase
+        users = FirebaseDatabase.getInstance().getReference(User.USER_KEY);
+        //Установка слушателя нажатия
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openActivity();
+                openUpdateActivity();
             }
         });
     }
 
-    private void openActivity() {
+    //Функции для открытия Activity редактирования пользователя
+    private void openUpdateActivity() {
         Intent intent = new Intent(this.getActivity(), UpdateActivity.class);
         startActivity(intent);
     }
 
+    //Получение данных из БД
     private void getDataBase() {
         users.addValueEventListener(new ValueEventListener() {
             @Override

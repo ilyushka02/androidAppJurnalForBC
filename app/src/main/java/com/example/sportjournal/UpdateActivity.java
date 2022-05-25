@@ -43,11 +43,11 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
     private DatabaseReference users;
     private StorageReference storageRef;
     private Calendar date = Calendar.getInstance();
-    EditText username_f, username_l, username_s, birthday, phone;
-    Button takeImg, updateUser;
+    private EditText username_f, username_l, username_s, birthday, phone;
+    private Button takeImg, updateUser;
     private Spinner gender;
     private ImageView update_img;
-    User user;
+    private User user;
     private Uri uploadPath;
 
 
@@ -60,26 +60,51 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
         getDataBase();
     }
 
+    //Инициализация компонентов
     private void initialization() {
-        users = FirebaseDatabase.getInstance().getReference(User.USER_KEY);
+        //Поиск элементов по id
         username_f = findViewById(R.id.Update_firststName);
         username_l = findViewById(R.id.Update_lastName);
         username_s = findViewById(R.id.Update_secondName);
         birthday = findViewById(R.id.Update_Birthday);
         gender = findViewById(R.id.Update_Gender);
         phone = findViewById(R.id.Update_Phone);
-        Function.createPatternForPhoneNumber(phone);
         update_img = findViewById(R.id.Update_imgProfile);
         updateUser = findViewById(R.id.Update_saveUser);
         takeImg = findViewById(R.id.Update_takeImg);
+        //Создание масок
+        Function.createPatternForPhoneNumber(phone);
+        Function.createPatternForDateBirthday(birthday);
+        //Заполнение выпадаюдщего списка
+        Function.createArrayForSpinner(gender, this);
+        //Установка слушателей нажатия
         birthday.setOnClickListener(this);
         updateUser.setOnClickListener(this);
         takeImg.setOnClickListener(this);
+        //Инициализация элементов firebase
         storageRef = FirebaseStorage.getInstance().getReference(UserActivity.userID);
-        Function.createArrayForSpinner(gender, this);
-        Function.createPatternForDateBirthday(birthday);
+        users = FirebaseDatabase.getInstance().getReference(User.USER_KEY);
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.Update_Birthday:
+                setDate(view);
+                break;
+            case R.id.Update_takeImg:
+                openGallery(view);
+                break;
+            case R.id.Update_saveUser:
+                saveUser();
+                break;
+            case R.id.Update_back:
+                finish();
+                break;
+        }
+    }
+
+    //Получение даннхы из БД
     private void getDataBase() {
         users.addValueEventListener(new ValueEventListener() {
             @Override
@@ -99,6 +124,8 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
     }
+
+    //открытие галлереи
     public void openGallery(View view) {
         Intent intent = new Intent();
         intent.setType("image/");
@@ -106,6 +133,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
         startActivityForResult(intent, 1);
     }
 
+    //Обработка получения изображения
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -117,6 +145,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    //Выгрузка изображения на сервер БД
     private void uploadImg() {
         Bitmap bitmap = ((BitmapDrawable) update_img.getDrawable()).getBitmap();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -140,7 +169,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
 
     // отображаем диалоговое окно для выбора даты
     public void setDate(View v) {
-        new DatePickerDialog( UpdateActivity.this, d,
+        new DatePickerDialog(UpdateActivity.this, d,
                 date.get(Calendar.YEAR),
                 date.get(Calendar.MONTH),
                 date.get(Calendar.DAY_OF_MONTH))
@@ -157,57 +186,46 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
         }
     };
 
-
+    //Установка выбранного значения в текстовое поле
     private void setInitialDate() {
         birthday.setText(DateUtils.formatDateTime(this,
                 date.getTimeInMillis(),
-                DateUtils.FORMAT_NUMERIC_DATE| DateUtils.FORMAT_SHOW_YEAR));
+                DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_YEAR));
     }
 
+    //Выгрузка данных пользователя в БД и их обновление
     private void saveUser() {
-        String last_name = "", first_name="", second_name="", email=user.email, str_phone="", str_gender="", str_birthday="", imageURI="";
-        if (!user.last.equals(username_l.getText().toString().trim())) last_name = username_l.getText().toString().trim();
+        String last_name = "", first_name = "", second_name = "", email = user.email, str_phone = "", str_gender = "", str_birthday = "", imageURI = "";
+        //Если данные изменились, то перезаписываем, иначе оставляем
+        if (!user.last.equals(username_l.getText().toString().trim()))
+            last_name = username_l.getText().toString().trim();
         else last_name = user.last;
-        if (!user.first.equals(username_f.getText().toString().trim())) first_name = username_f.getText().toString().trim();
+        if (!user.first.equals(username_f.getText().toString().trim()))
+            first_name = username_f.getText().toString().trim();
         else first_name = user.first;
-        if (!user.second.equals(username_s.getText().toString().trim())) second_name = username_s.getText().toString().trim();
+        if (!user.second.equals(username_s.getText().toString().trim()))
+            second_name = username_s.getText().toString().trim();
         else second_name = user.second;
-        if (!user.phone.equals(phone.getText().toString().trim())) str_phone = phone.getText().toString().trim();
+        if (!user.phone.equals(phone.getText().toString().trim()))
+            str_phone = phone.getText().toString().trim();
         else str_phone = user.phone;
-        if (!user.gender.equals(gender.getSelectedItem().toString().trim())) str_gender = gender.getSelectedItem().toString().trim();
-        else  str_gender = user.gender;
-        if (!user.data_birthday.equals(birthday.getText().toString().trim())) str_birthday = birthday.getText().toString().trim();
+        if (!user.gender.equals(gender.getSelectedItem().toString().trim()))
+            str_gender = gender.getSelectedItem().toString().trim();
+        else str_gender = user.gender;
+        if (!user.data_birthday.equals(birthday.getText().toString().trim()))
+            str_birthday = birthday.getText().toString().trim();
         else str_birthday = user.data_birthday;
-        if(uploadPath != null){
-            if (!user.image.equals(uploadPath.toString())) imageURI = uploadPath.toString();
+        if (uploadPath != null) {
+            if (!user.image.equals(uploadPath.toString()))
+                imageURI = uploadPath.toString();
             else imageURI = user.image;
         }
-        User user = new User(UserActivity.userID, last_name, first_name, second_name, email, str_phone ,str_gender, str_birthday, imageURI);
+        User user = new User(UserActivity.userID, last_name, first_name, second_name, email, str_phone, str_gender, str_birthday, imageURI);
         users.child(UserActivity.userID).setValue(user);
-
 
         Toast toast = Toast.makeText(this, "Success", LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.Update_Birthday:
-                setDate(view);
-                break;
-            case R.id.Update_takeImg:
-                openGallery(view);
-
-                break;
-            case R.id.Update_saveUser:
-                saveUser();
-                break;
-        }
-    }
-
-    public void back(View view) {
-        finish();
-    }
 }

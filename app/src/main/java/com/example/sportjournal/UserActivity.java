@@ -60,7 +60,7 @@ public class UserActivity extends AppCompatActivity {
     }
 
     private void initialization() {
-        // подключаем FragmentManager
+        //Поиск элементов по id
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
         firstName = (TextView) headerView.findViewById(R.id.userFirstName);
@@ -74,6 +74,7 @@ public class UserActivity extends AppCompatActivity {
         storageRef = FirebaseStorage.getInstance().getReference(userID);
     }
 
+    //Получение данных из БД
     private void getDataBase() {
         users.addValueEventListener(new ValueEventListener() {
             @Override
@@ -94,7 +95,6 @@ public class UserActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.user, menu);
         getSupportActionBar().setTitle("Главная");
         return true;
@@ -107,12 +107,16 @@ public class UserActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    //Открытие адреса спортивного учереждения в гугл картах
     public void OpenAddress(View view) {
         Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
                 Uri.parse("http://maps.google.com/maps?daddr=Южное ш., 2Г, Нижний Новгород, Россия"));
         startActivity(intent);
     }
 
+    /////////////////////////////////////////////////
+    //Функции для подстановки номера в поле вызова//
+    ///////////////////////////////////////////////
     public void openPhone1(View view) {
         String dial = "tel:+7(910)880-87-98";
         startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(dial)));

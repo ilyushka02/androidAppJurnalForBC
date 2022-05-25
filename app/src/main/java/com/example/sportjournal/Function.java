@@ -1,21 +1,13 @@
 package com.example.sportjournal;
 
-import static android.widget.Toast.LENGTH_SHORT;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.view.Gravity;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import com.example.sportjournal.AllerDialogs.ErrorConnectorInNetwork;
 
 import ru.tinkoff.decoro.MaskImpl;
 import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser;
@@ -25,20 +17,15 @@ import ru.tinkoff.decoro.watchers.FormatWatcher;
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
 
 public class Function extends AppCompatActivity{
+    //Флаг проверки сосотояния сети;
     public static boolean FLAG_CONNECTING_NETWORK;
-    //functions for open activity
+
+    ///////////////////////////////////////////
+    //Функции для открытия новых активностей//
+    ///////////////////////////////////////////
     public static void openSignin(Context context) {
         Intent intent = new Intent(context, Signin.class);
         context.startActivity(intent);
-    }
-
-    //create AlertDialog
-    public void createDialog(){
-        FragmentManager manager = getSupportFragmentManager();
-        getSupportFragmentManager();
-        ErrorConnectorInNetwork myDialogFragment = new ErrorConnectorInNetwork();
-        FragmentTransaction transaction = manager.beginTransaction();
-        myDialogFragment.show(transaction, "dialog");
     }
 
     public static void openSignup(Context context) {
@@ -46,15 +33,9 @@ public class Function extends AppCompatActivity{
         context.startActivity(intent);
     }
 
-    //function for create toast
-    //Заменить тосты на снеки!!!!!!!!!!!
-    public static void createToast(Activity activity, String text){
-//        Snackbar.make(view, text, BaseTransientBottomBar.LENGTH_SHORT).show();
-        Toast toast = Toast.makeText( activity, text, LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
-    }
-    //functions for create pattern
+    ///////////////////////////////////
+    //Функции для создания паттернов//
+    /////////////////////////////////
     public static void createPatternForDateBirthday(EditText date){
         Slot[] slots = new UnderscoreDigitSlotsParser().parseSlots("__.__.____");
         FormatWatcher formatWatcher = new MaskFormatWatcher(
@@ -77,7 +58,9 @@ public class Function extends AppCompatActivity{
         formatWatcher.installOn(number);
     }
 
-    //function for write in array
+    //////////////////////////////////////////////
+    //Функции для заполнения выпадающего списка//
+    ////////////////////////////////////////////
     public static  void createArrayForSpinner(Spinner spinner, Activity activity){
         String[] gender_array = {"не выбрано", "мужской", "женский"};
         ArrayAdapter<String> adapter = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, gender_array);
