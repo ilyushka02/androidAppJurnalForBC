@@ -1,5 +1,7 @@
 package com.example.sportjournal;
 
+import static android.widget.Toast.LENGTH_SHORT;
+
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -7,12 +9,14 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,7 +46,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
     EditText username_f, username_l, username_s, birthday, phone;
     Button takeImg, updateUser;
     private Spinner gender;
-    ImageView avatar;
+    private ImageView update_img;
     User user;
     private Uri uploadPath;
 
@@ -51,7 +55,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
-        getSupportActionBar().hide();
+        getSupportActionBar().setTitle("Редактирование профиля");
         initialization();
         getDataBase();
     }
@@ -65,7 +69,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
         gender = findViewById(R.id.Update_Gender);
         phone = findViewById(R.id.Update_Phone);
         Function.createPatternForPhoneNumber(phone);
-        avatar = findViewById(R.id.Update_imgProfile);
+        update_img = findViewById(R.id.Update_imgProfile);
         updateUser = findViewById(R.id.Update_saveUser);
         takeImg = findViewById(R.id.Update_takeImg);
         birthday.setOnClickListener(this);
@@ -81,10 +85,10 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 user = snapshot.child(UserActivity.userID).getValue(User.class);
-                if (!user.imageURI.isEmpty()) Picasso.get().load(user.imageURI).into(avatar);
-                username_f.setText(user.F_Name);
-                username_l.setText(user.L_Name);
-                username_s.setText(user.S_Name);
+                if (!user.image.isEmpty()) Picasso.get().load(user.image).into(update_img);
+                username_f.setText(user.first);
+                username_l.setText(user.last);
+                username_s.setText(user.second);
                 birthday.setText(user.data_birthday);
                 phone.setText(user.phone);
             }
@@ -107,20 +111,20 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
         super.onActivityResult(requestCode, resultCode, data);
         if ((requestCode == 1) && (data != null) && (data.getData() != null)) {
             if (resultCode == RESULT_OK) {
-                avatar.setImageURI(data.getData());
+                update_img.setImageURI(data.getData());
                 uploadImg();
             }
         }
     }
 
     private void uploadImg() {
-        Bitmap bitmap = ((BitmapDrawable) avatar.getDrawable()).getBitmap();
+        Bitmap bitmap = ((BitmapDrawable) update_img.getDrawable()).getBitmap();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] bytes = baos.toByteArray();
         StorageReference usRef = storageRef.child("image" + System.currentTimeMillis());
         UploadTask up = usRef.putBytes(bytes);
-        Task<Uri> task = up.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+        Task<Uri> uriTask = up.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override
             public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
                 return usRef.getDownloadUrl();
@@ -161,15 +165,30 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void saveUser() {
-        users.child(UserActivity.userID).child("L_Name ").setValue(username_l.getText().toString().trim());
-        users.child(UserActivity.userID).child("F_Name ").setValue(username_f.getText().toString().trim());
-        users.child(UserActivity.userID).child("S_Name ").setValue(username_s.getText().toString().trim());
-        users.child(UserActivity.userID).child("phone").setValue(phone.getText().toString().trim());
-        users.child(UserActivity.userID).child("gender").setValue(gender.getSelectedItem().toString().trim());
-        users.child(UserActivity.userID).child("data_birthday").setValue(birthday.getText().toString().trim());
-        users.child(UserActivity.userID).child("imageURI").setValue(uploadPath.toString());
-//        Intent intent = new Intent(this, UserActivity.class);
-//        startActivity(intent);
+        String last_name = "", first_name="", second_name="", email=user.email, str_phone="", str_gender="", str_birthday="", imageURI="";
+        if (!user.last.equals(username_l.getText().toString().trim())) last_name = username_l.getText().toString().trim();
+        else last_name = user.last;
+        if (!user.first.equals(username_f.getText().toString().trim())) first_name = username_f.getText().toString().trim();
+        else first_name = user.first;
+        if (!user.second.equals(username_s.getText().toString().trim())) second_name = username_s.getText().toString().trim();
+        else second_name = user.second;
+        if (!user.phone.equals(phone.getText().toString().trim())) str_phone = phone.getText().toString().trim();
+        else str_phone = user.phone;
+        if (!user.gender.equals(gender.getSelectedItem().toString().trim())) str_gender = gender.getSelectedItem().toString().trim();
+        else  str_gender = user.gender;
+        if (!user.data_birthday.equals(birthday.getText().toString().trim())) str_birthday = birthday.getText().toString().trim();
+        else str_birthday = user.data_birthday;
+        if(uploadPath != null){
+            if (!user.image.equals(uploadPath.toString())) imageURI = uploadPath.toString();
+            else imageURI = user.image;
+        }
+        User user = new User(UserActivity.userID, last_name, first_name, second_name, email, str_phone ,str_gender, str_birthday, imageURI);
+        users.child(UserActivity.userID).setValue(user);
+
+
+        Toast toast = Toast.makeText(this, "Success", LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 
     @Override
@@ -180,10 +199,15 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.Update_takeImg:
                 openGallery(view);
+
                 break;
             case R.id.Update_saveUser:
                 saveUser();
                 break;
         }
+    }
+
+    public void back(View view) {
+        finish();
     }
 }

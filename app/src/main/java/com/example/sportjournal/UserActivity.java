@@ -79,10 +79,10 @@ public class UserActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.child(userID).getValue(User.class);
-                if (!user.imageURI.isEmpty()) Picasso.get().load(user.imageURI).into(avatar1);
-                firstName.setText(user.F_Name);
-                lastName.setText(user.L_Name);
-                secondName.setText(user.S_Name);
+                if (!user.image.isEmpty()) Picasso.get().load(user.image).into(avatar1);
+                firstName.setText(user.first);
+                lastName.setText(user.last);
+                secondName.setText(user.second);
             }
 
             @Override

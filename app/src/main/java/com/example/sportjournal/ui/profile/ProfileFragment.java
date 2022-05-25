@@ -70,8 +70,8 @@ public class ProfileFragment extends Fragment{
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 user = snapshot.child(UserActivity.userID).getValue(User.class);
-                if (!user.imageURI.isEmpty()) Picasso.get().load(user.imageURI).into(avatar);
-                username.setText(user.L_Name + " " + user.F_Name + " " + user.S_Name);
+                if (!user.image.isEmpty()) Picasso.get().load(user.image).into(avatar);
+                username.setText(user.last + " " + user.first + " " + user.second);
                 birthday.setText("дата рождения: " + user.data_birthday);
                 gender.setText("пол: " + user.gender);
                 email.setText(user.email);
