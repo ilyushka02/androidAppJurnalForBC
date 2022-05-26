@@ -3,12 +3,15 @@ package com.example.sportjournal.ui.sections;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ViewFlipper;
@@ -32,6 +35,7 @@ import java.util.List;
 public class HomeFragment extends Fragment implements View.OnTouchListener {
     private HomeViewModel homeViewModel;
     View root;
+    private EditText serch;
     private DatabaseReference section;
     private ListView listView;
     private ArrayAdapter<String> adapter;
@@ -74,6 +78,23 @@ public class HomeFragment extends Fragment implements View.OnTouchListener {
         adapter = new ArrayAdapter(this.getActivity(), android.R.layout.simple_list_item_1, listSection);
         listView.setAdapter(adapter);
         section = FirebaseDatabase.getInstance().getReference(Section.KEY);
+        serch = (EditText) flipper.findViewById(R.id.Section_serch);
+        serch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                adapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
 
