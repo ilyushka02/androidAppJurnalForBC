@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.sportjournal.ui.home.HomeFragment"
+        android:name="com.example.sportjournal.ui.sections.HomeFragment"
         android:label="Главная"
         tools:layout="@layout/fragment_sections" />
 
@@ -23,15 +23,10 @@
         android:label="Контакты"
         tools:layout="@layout/fragment_contact" />
 
-    <fragment
-        android:id="@+id/nav_update"
-        android:name="com.example.sportjournal.ui.update.UpdateFragment"
-        android:label="Редактирование профиля"
-        tools:layout="@layout/fragment_update" />
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="com.example.sportjournal.ui.setings.SetingsFragment"
+        android:name="com.example.sportjournal.ui.settings.SettingsFragment"
         android:label="Настройка"
         tools:layout="@layout/fragment_settings" />
 </navigation>

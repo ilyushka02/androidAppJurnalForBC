@@ -3,11 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidDevelop/SportJournal/app/src/main/res/drawable-v21/ic_menu_slideshow.xml" value="0.279" />
         <entry key="..\:/AndroidDevelop/SportJournal/app/src/main/res/drawable/shape_for_spiner.xml" value="0.2495" />
         <entry key="..\:/AndroidDevelop/SportJournal/app/src/main/res/drawable/shape_for_user_icon.xml" value="0.2495" />
         <entry key="..\:/AndroidDevelop/SportJournal/app/src/main/res/layout/activity_code_sms.xml" value="0.20606884057971014" />
         <entry key="..\:/AndroidDevelop/SportJournal/app/src/main/res/layout/activity_error.xml" value="0.264" />
         <entry key="..\:/AndroidDevelop/SportJournal/app/src/main/res/layout/activity_main.xml" value="0.176" />
+        <entry key="..\:/AndroidDevelop/SportJournal/app/src/main/res/layout/activity_section.xml" value="0.22521367521367522" />
         <entry key="..\:/AndroidDevelop/SportJournal/app/src/main/res/layout/activity_section_v2.xml" value="0.14188034188034188" />
         <entry key="..\:/AndroidDevelop/SportJournal/app/src/main/res/layout/activity_signin.xml" value="0.264" />
         <entry key="..\:/AndroidDevelop/SportJournal/app/src/main/res/layout/activity_signup.xml" value="0.264" />

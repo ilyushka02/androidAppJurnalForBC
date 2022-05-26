@@ -1,16 +1,16 @@
-package com.example.sportjournal.ui.setings;
+package com.example.sportjournal.ui.sections;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SetingsViewModel extends ViewModel {
+public class HomeViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public SetingsViewModel() {
+    public HomeViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
+        mText.setValue("This is home fragment");
     }
 
     public LiveData<String> getText() {
