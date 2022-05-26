@@ -1,12 +1,16 @@
 package com.example.sportjournal;
 
+import static android.widget.Toast.LENGTH_SHORT;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -99,6 +103,10 @@ public class SectionActivity extends AppCompatActivity implements View.OnClickLi
     public void like(View view) {
         LikeSection ls = new LikeSection(UserActivity.userID, UserActivity.userID, section_id);
         like_section.child(UserActivity.userID).setValue(ls);
+
+        Toast toast = Toast.makeText(this, "Запись прошла успешно", LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 
 
