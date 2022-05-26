@@ -159,15 +159,20 @@ public class HomeFragment extends Fragment implements View.OnTouchListener {
         likeSection.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    ls = snapshot.child(UserActivity.userID).getValue(LikeSection.class);
-            }
+                ls = snapshot.child(UserActivity.userID).getValue(LikeSection.class);
+                if (!ls.id_section.isEmpty()){
+                    getLikeSection();
+                    setOnClickItemLikeSection();
+                }            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-
+    }
+    //Получение секции на которую пользователь подписался
+    private void getLikeSection(){
         section.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -184,7 +189,9 @@ public class HomeFragment extends Fragment implements View.OnTouchListener {
 
             }
         });
+    }
 
+    private void setOnClickItemLikeSection(){
         listViewLike.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sportjournal.db.LikeSection;
 import com.example.sportjournal.db.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -32,6 +33,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
     private Spinner gender_list;
     private FirebaseAuth mAuth;
     private FirebaseDatabase db;
+    private DatabaseReference like_section;
     private DatabaseReference users;
     private int FLAG_CHEKED = 0;
 
@@ -67,6 +69,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         //Инициализация элементов firebase
         db = FirebaseDatabase.getInstance();
         users = db.getReference(User.USER_KEY);
+        like_section = db.getReference(LikeSection.KEY);
         mAuth = FirebaseAuth.getInstance();
     }
 
@@ -152,6 +155,8 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                                     String id = mAuth.getUid();
                                     User user = new User(id, last_name, first_name, second_name, email, "", gender, birthday, "");
                                     users.child(id).setValue(user);
+                                    LikeSection ls = new LikeSection(id, id, "");
+                                    like_section.child(id).setValue(ls);
                                     Snackbar.make(findViewById(R.id.body_signup_page), "Регистрация прошла успешно.", BaseTransientBottomBar.LENGTH_SHORT).show();
                                 } else {
                                     Snackbar.make(findViewById(R.id.body_signup_page), "Такой пользователь уже существует!", BaseTransientBottomBar.LENGTH_SHORT).show();
