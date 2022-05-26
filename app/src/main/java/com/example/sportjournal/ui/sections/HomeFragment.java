@@ -155,6 +155,7 @@ public class HomeFragment extends Fragment implements View.OnTouchListener {
 
     private  void openSectionActivity(Section s){
         Intent intent = new Intent(this.getActivity(), SectionActivity.class);
+        intent.putExtra("id", s.id);
         intent.putExtra("name", s.name);
         intent.putExtra("day", s.day);
         intent.putExtra("time", s.time);

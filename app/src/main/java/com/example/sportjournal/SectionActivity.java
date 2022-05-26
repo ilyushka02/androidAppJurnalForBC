@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sportjournal.db.LikeSection;
 import com.example.sportjournal.db.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,6 +21,7 @@ import com.squareup.picasso.Picasso;
 
 public class SectionActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView section_name, section_day, section_time, trainer_name, trainer_phone, trainer_email;
+    private String section_id;
     private ImageView avatar_trainer;
     private DatabaseReference trainer;
     private DatabaseReference like_section;
@@ -50,12 +52,13 @@ public class SectionActivity extends AppCompatActivity implements View.OnClickLi
         back.setOnClickListener(this);
         //Инициализация элементов firebase
         trainer = FirebaseDatabase.getInstance().getReference("TRAINER");
-        like_section = FirebaseDatabase.getInstance().getReference("LIKE_SECTION");
+        like_section = FirebaseDatabase.getInstance().getReference(LikeSection.KEY);
     }
 
     private void getIntentData() {
         Intent intent = getIntent();
         if (intent != null) {
+            section_id = intent.getStringExtra("id");
             section_name.setText(intent.getStringExtra("name"));
             section_time.setText(intent.getStringExtra("time"));
             section_day.setText(intent.getStringExtra("day"));
@@ -89,13 +92,11 @@ public class SectionActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.Section_back:
                 finish();
                 break;
-            case R.id.Section_like:
-                likeSection();
-                break;
         }
     }
 
-    private void likeSection() {
-
+    public void like(View view) {
+        LikeSection ls = new LikeSection(UserActivity.userID, UserActivity.userID, section_id);
+        like_section.child(UserActivity.userID).setValue(ls);
     }
 }

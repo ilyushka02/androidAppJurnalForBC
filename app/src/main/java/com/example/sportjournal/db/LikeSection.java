@@ -1,18 +1,16 @@
 package com.example.sportjournal.db;
 
 public class LikeSection {
-    public static String KEY = "SECTION";
-    public String id, name, trainer, time, day;
+    public static String KEY = "LIKE_SECTION";
+    public String id, id_user, id_section;
 
     public LikeSection() {
     }
 
-    public LikeSection(String str_id, String str_name, String str_trainer, String str_time, String str_day) {
+    public LikeSection(String str_id, String str_id_user, String str_section) {
         this.id = str_id;
-        this.name = str_name;
-        this.trainer = str_trainer;
-        this.time = str_time;
-        this.day = str_day;
+        this.id_user = str_id_user;
+        this.id_section = str_section;
     }
 
 }
