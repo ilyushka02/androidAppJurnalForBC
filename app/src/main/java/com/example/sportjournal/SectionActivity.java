@@ -1,6 +1,7 @@
 package com.example.sportjournal;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -45,7 +46,7 @@ public class SectionActivity extends AppCompatActivity implements View.OnClickLi
         section_day = findViewById(R.id.Section_day);
         section_time = findViewById(R.id.Section_time);
         trainer_name = findViewById(R.id.Section_nameTrainer);
-        trainer_phone = findViewById(R.id.Section_email);
+        trainer_phone = findViewById(R.id.Section_phone);
         trainer_email = findViewById(R.id.Section_email);
         avatar_trainer = findViewById(R.id.Section_imgProfile);
         back = findViewById(R.id.Section_back);
@@ -98,5 +99,17 @@ public class SectionActivity extends AppCompatActivity implements View.OnClickLi
     public void like(View view) {
         LikeSection ls = new LikeSection(UserActivity.userID, UserActivity.userID, section_id);
         like_section.child(UserActivity.userID).setValue(ls);
+    }
+
+
+    public void openPhone(View view) {
+        String dial = "tel:" + trainer_phone.getText();
+        startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(dial)));
+    }
+
+    public void sectionOpenAddress(View view) {
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                Uri.parse("http://maps.google.com/maps?daddr=Южное ш., 2Г, Нижний Новгород, Россия"));
+        startActivity(intent);
     }
 }

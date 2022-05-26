@@ -89,7 +89,7 @@
                         android:layout_marginBottom="20dp"
                         android:textSize="18dp"
                         android:textColor="@color/hiper_linc_color"
-                        android:text="Южное ш., 2Г, Нижний Новгород, Россия"
+                        android:text="Южное ш., 2Г, Нижний Новгород"
                         android:onClick="OpenAddress"/>
 
                 </LinearLayout>

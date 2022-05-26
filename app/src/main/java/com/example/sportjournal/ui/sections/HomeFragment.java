@@ -22,6 +22,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.sportjournal.R;
 import com.example.sportjournal.SectionActivity;
+import com.example.sportjournal.UserActivity;
+import com.example.sportjournal.db.LikeSection;
 import com.example.sportjournal.db.Section;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,10 +39,15 @@ public class HomeFragment extends Fragment implements View.OnTouchListener {
     View root;
     private EditText serch;
     private DatabaseReference section;
-    private ListView listView;
+    private DatabaseReference likeSection;
+    private ListView listViewSection;
+    private ListView listViewLike;
     private ArrayAdapter<String> adapter;
+    private ArrayAdapter<String> likeAdapter;
     private List<String> listSection;
+    private List<String> listLikeSection;
     private List<Section> listTemp;
+    LikeSection ls;
     float fromPosition, toPosition;
     ViewFlipper flipper;
 
@@ -52,6 +59,7 @@ public class HomeFragment extends Fragment implements View.OnTouchListener {
         initialization();
         getDataBase();
         setOnClickItem();
+        getDataBaseLike();
         return root;
     }
 
@@ -66,18 +74,23 @@ public class HomeFragment extends Fragment implements View.OnTouchListener {
 
         // Создаем View и добавляем их в уже готовый flipper
         LayoutInflater inflater = (LayoutInflater) this.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        int layouts[] = new int[]{ R.layout.all_section, R.layout.like_section};
+        int layouts[] = new int[]{R.layout.all_section, R.layout.like_section};
         for (int layout : layouts)
             flipper.addView(inflater.inflate(layout, null));
 
 
         //Поиск элементов по id
-        listView = (ListView) flipper.findViewById(R.id.sectionList);
+        listViewSection = (ListView) flipper.findViewById(R.id.sectionList);
+        listViewLike = (ListView) flipper.findViewById(R.id.sectionLikeList);
         listSection = new ArrayList<>();
+        listLikeSection = new ArrayList<>();
         listTemp = new ArrayList<>();
         adapter = new ArrayAdapter(this.getActivity(), android.R.layout.simple_list_item_1, listSection);
-        listView.setAdapter(adapter);
+        likeAdapter = new ArrayAdapter(this.getActivity(), android.R.layout.simple_list_item_1, listLikeSection);
+        listViewSection.setAdapter(adapter);
+        listViewLike.setAdapter(likeAdapter);
         section = FirebaseDatabase.getInstance().getReference(Section.KEY);
+        likeSection = FirebaseDatabase.getInstance().getReference(LikeSection.KEY);
         serch = (EditText) flipper.findViewById(R.id.Section_serch);
         serch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -98,11 +111,9 @@ public class HomeFragment extends Fragment implements View.OnTouchListener {
     }
 
 
-    public boolean onTouch(View view, MotionEvent event)
-    {
-        switch (event.getAction())
-        {
-            case MotionEvent. ACTION_DOWN: // Пользователь нажал на экран, т.е. начало движения
+    public boolean onTouch(View view, MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN: // Пользователь нажал на экран, т.е. начало движения
                 // fromPosition - координата по оси X начала выполнения операции
                 fromPosition = event.getX();
                 break;
@@ -118,7 +129,7 @@ public class HomeFragment extends Fragment implements View.OnTouchListener {
         return true;
     }
 
-    //Получение данных из БД
+    //Получение данных из БД секции
     private void getDataBase() {
         section.addValueEventListener(new ValueEventListener() {
             @Override
@@ -143,8 +154,48 @@ public class HomeFragment extends Fragment implements View.OnTouchListener {
         });
     }
 
-    private void setOnClickItem(){
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    //Получение данных из БД секций на которые пользователь подписался
+    private void getDataBaseLike() {
+        likeSection.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    ls = snapshot.child(UserActivity.userID).getValue(LikeSection.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        section.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Section section = snapshot.child(ls.id_section).getValue(Section.class);
+                if (listLikeSection.size() > 0)
+                    listLikeSection.clear();
+                assert section != null;
+                listLikeSection.add(section.name);
+                likeAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        listViewLike.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Section section = listTemp.get(Integer.valueOf(ls.id_section) - 1);
+                openSectionActivity(section);
+            }
+        });
+    }
+
+    private void setOnClickItem() {
+        listViewSection.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Section section = listTemp.get(i);
@@ -153,7 +204,7 @@ public class HomeFragment extends Fragment implements View.OnTouchListener {
         });
     }
 
-    private  void openSectionActivity(Section s){
+    private void openSectionActivity(Section s) {
         Intent intent = new Intent(this.getActivity(), SectionActivity.class);
         intent.putExtra("id", s.id);
         intent.putExtra("name", s.name);

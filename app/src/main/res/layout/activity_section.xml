@@ -88,6 +88,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/heightTextEditSignUp"
                 android:text ="89108809647"
+                android:textColor="@color/hiper_linc_color"
+                android:onClick="openPhone"
                 android:gravity="center_vertical"
                 android:textSize="16dp" />
 
@@ -117,9 +119,11 @@
             <TextView
                 android:id="@+id/Section_adres"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/heightTextEditSignUp"
-                android:text ="Студенческая 6Б"
+                android:layout_height="60dp"
+                android:text ="Южное ш., 2Г, Нижний Новгород, Россия"
                 android:gravity="center_vertical"
+                android:onClick="sectionOpenAddress"
+                android:textColor="@color/hiper_linc_color"
                 android:textSize="16dp" />
 
         </LinearLayout>
