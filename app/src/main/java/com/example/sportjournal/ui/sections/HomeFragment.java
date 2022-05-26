@@ -1,13 +1,17 @@
 package com.example.sportjournal.ui.sections;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -25,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnTouchListener {
     private HomeViewModel homeViewModel;
     View root;
     private DatabaseReference section;
@@ -33,6 +37,8 @@ public class HomeFragment extends Fragment {
     private ArrayAdapter<String> adapter;
     private List<String> listSection;
     private List<Section> listTemp;
+    float fromPosition, toPosition;
+    ViewFlipper flipper;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -47,8 +53,22 @@ public class HomeFragment extends Fragment {
 
     //Инициализация компонентов
     private void initialization() {
+        // Устанавливаем listener касаний, для последующего перехвата жестов
+        LinearLayout mainLayout = (LinearLayout) root.findViewById(R.id.main_layout);
+        mainLayout.setOnTouchListener(this);
+
+        // Получаем объект ViewFlipper
+        flipper = (ViewFlipper) root.findViewById(R.id.flipper);
+
+        // Создаем View и добавляем их в уже готовый flipper
+        LayoutInflater inflater = (LayoutInflater) this.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        int layouts[] = new int[]{ R.layout.all_section, R.layout.like_section};
+        for (int layout : layouts)
+            flipper.addView(inflater.inflate(layout, null));
+
+
         //Поиск элементов по id
-        listView = (ListView) root.findViewById(R.id.sectionList);
+        listView = (ListView) flipper.findViewById(R.id.sectionList);
         listSection = new ArrayList<>();
         listTemp = new ArrayList<>();
         adapter = new ArrayAdapter(this.getActivity(), android.R.layout.simple_list_item_1, listSection);
@@ -56,6 +76,26 @@ public class HomeFragment extends Fragment {
         section = FirebaseDatabase.getInstance().getReference(Section.KEY);
     }
 
+
+    public boolean onTouch(View view, MotionEvent event)
+    {
+        switch (event.getAction())
+        {
+            case MotionEvent. ACTION_DOWN: // Пользователь нажал на экран, т.е. начало движения
+                // fromPosition - координата по оси X начала выполнения операции
+                fromPosition = event.getX();
+                break;
+            case MotionEvent.ACTION_UP: // Пользователь отпустил экран, т.е. окончание движения
+                toPosition = event.getX();
+                if (fromPosition > toPosition)
+                    flipper.showNext();
+                else if (fromPosition < toPosition)
+                    flipper.showPrevious();
+            default:
+                break;
+        }
+        return true;
+    }
 
     //Получение данных из БД
     private void getDataBase() {
