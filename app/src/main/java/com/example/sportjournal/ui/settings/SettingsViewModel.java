@@ -10,7 +10,9 @@ public class SettingsViewModel extends ViewModel {
 
     public SettingsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is settings fragment");
+        mText.setValue("Разработчик: Насурллаев Илья" +
+                "\nПо всем вопросам обращаться на почту: ilyaevgenievi4@mail.ru\n" +
+                "Куратор проекта: Щербатюк М.С");
     }
 
     public LiveData<String> getText() {
