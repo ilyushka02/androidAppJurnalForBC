@@ -19,13 +19,4 @@
             tools:ignore="MissingConstraints"/>
     </LinearLayout>
 
-
-    <!--    <ScrollView-->
-<!--        android:layout_width="391dp"-->
-<!--        android:layout_height="794dp"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        tools:layout_editor_absoluteX="1dp"-->
-<!--        tools:ignore="MissingConstraints">-->
-<!--    </ScrollView>-->
-
 </androidx.constraintlayout.widget.ConstraintLayout>

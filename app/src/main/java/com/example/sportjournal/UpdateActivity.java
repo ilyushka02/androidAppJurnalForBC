@@ -103,6 +103,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
                 break;
         }
     }
+
     public void back(View view) {
         finish();
     }
@@ -221,8 +222,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
         if (uploadPath != null) {
             if (!user.image.equals(uploadPath.toString()))
                 imageURI = uploadPath.toString();
-        }
-        else {
+        } else {
             createDialog();
             imageURI = user.image;
         }

@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
@@ -34,7 +35,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment implements View.OnTouchListener {
+public class HomeFragment extends Fragment implements View.OnTouchListener, View.OnClickListener {
     private HomeViewModel homeViewModel;
     View root;
     private EditText serch;
@@ -47,9 +48,10 @@ public class HomeFragment extends Fragment implements View.OnTouchListener {
     private List<String> listSection;
     private List<String> listLikeSection;
     private List<Section> listTemp;
-    LikeSection ls;
+    private LikeSection ls;
     float fromPosition, toPosition;
-    ViewFlipper flipper;
+    private ViewFlipper flipper;
+    private ProgressBar progressBar;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public class HomeFragment extends Fragment implements View.OnTouchListener {
         root = inflater.inflate(R.layout.fragment_sections, container, false);
         initialization();
         getDataBase();
+        progressBar.setVisibility(View.VISIBLE);
         setOnClickItem();
         getDataBaseLike();
         return root;
@@ -77,9 +80,8 @@ public class HomeFragment extends Fragment implements View.OnTouchListener {
         int layouts[] = new int[]{R.layout.all_section, R.layout.like_section};
         for (int layout : layouts)
             flipper.addView(inflater.inflate(layout, null));
-
-
         //Поиск элементов по id
+        progressBar = (ProgressBar) flipper.findViewById(R.id.progressBar);
         listViewSection = (ListView) flipper.findViewById(R.id.sectionList);
         listViewLike = (ListView) flipper.findViewById(R.id.sectionLikeList);
         listSection = new ArrayList<>();
@@ -92,22 +94,7 @@ public class HomeFragment extends Fragment implements View.OnTouchListener {
         section = FirebaseDatabase.getInstance().getReference(Section.KEY);
         likeSection = FirebaseDatabase.getInstance().getReference(LikeSection.KEY);
         serch = (EditText) flipper.findViewById(R.id.Section_serch);
-        serch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                adapter.getFilter().filter(charSequence);
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
+        serch.setOnClickListener(this);
     }
 
 
@@ -128,7 +115,6 @@ public class HomeFragment extends Fragment implements View.OnTouchListener {
         }
         return true;
     }
-
     //Получение данных из БД секции
     private void getDataBase() {
         section.addValueEventListener(new ValueEventListener() {
@@ -145,6 +131,7 @@ public class HomeFragment extends Fragment implements View.OnTouchListener {
                     listTemp.add(s);
                 }
                 adapter.notifyDataSetChanged();
+                progressBar.setVisibility(View.INVISIBLE);
             }
 
             @Override
@@ -152,6 +139,7 @@ public class HomeFragment extends Fragment implements View.OnTouchListener {
 
             }
         });
+
     }
 
     //Получение данных из БД секций на которые пользователь подписался
@@ -160,10 +148,11 @@ public class HomeFragment extends Fragment implements View.OnTouchListener {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ls = snapshot.child(UserActivity.userID).getValue(LikeSection.class);
-                if (!ls.id_section.isEmpty()){
+                if (!ls.id_section.isEmpty()) {
                     getLikeSection();
                     setOnClickItemLikeSection();
-                }            }
+                }
+            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -171,8 +160,9 @@ public class HomeFragment extends Fragment implements View.OnTouchListener {
             }
         });
     }
+
     //Получение секции на которую пользователь подписался
-    private void getLikeSection(){
+    private void getLikeSection() {
         section.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -191,7 +181,7 @@ public class HomeFragment extends Fragment implements View.OnTouchListener {
         });
     }
 
-    private void setOnClickItemLikeSection(){
+    private void setOnClickItemLikeSection() {
         listViewLike.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -219,5 +209,25 @@ public class HomeFragment extends Fragment implements View.OnTouchListener {
         intent.putExtra("time", s.time);
         intent.putExtra("trainer", s.trainer);
         startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View view) {
+        serch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                adapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 }

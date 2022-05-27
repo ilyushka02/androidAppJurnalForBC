@@ -32,6 +32,7 @@
             android:textSize="17sp"
             android:textStyle="bold"
             tools:ignore="MissingConstraints" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -40,6 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:orientation="vertical"
+        android:gravity="center"
         app:layout_constraintTop_toTopOf="@+id/text"
         tools:ignore="MissingConstraints">
 
@@ -48,22 +50,29 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/Section_serch"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:backgroundTint="@color/gray"
-                    android:ems="10"
-                    android:padding="5dp"
-                    android:hint="Поиск"
-                    android:inputType="textPersonName" />
+            <EditText
+                android:id="@+id/Section_serch"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/gray"
+                android:ems="10"
+                android:hint="Поиск"
+                android:inputType="textPersonName"
+                android:padding="5dp" />
 
             <ListView
                 android:id="@+id/sectionList"
                 android:layout_width="match_parent"
-                android:layout_height="320dp"/>
+                android:layout_height="320dp" />
 
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
 
     </LinearLayout>

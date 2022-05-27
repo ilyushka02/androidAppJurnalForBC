@@ -37,6 +37,7 @@ public class UserActivity extends AppCompatActivity {
     private TextView lastName, firstName, secondName;
     private ImageView avatar1;
     public static String userID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

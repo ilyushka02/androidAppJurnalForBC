@@ -140,6 +140,17 @@
             app:backgroundTint="@color/white" />
 
         <Button
+            android:id="@+id/Section_dislike"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:text="Отписаться"
+            android:textColor="@color/green"
+            android:textSize="10dp"
+            android:onClick="dislike"
+            app:backgroundTint="@color/white" />
+
+        <Button
             android:id="@+id/Section_back"
             android:layout_width="match_parent"
             android:layout_height="50dp"

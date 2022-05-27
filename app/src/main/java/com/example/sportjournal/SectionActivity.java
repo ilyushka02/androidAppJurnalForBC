@@ -33,12 +33,14 @@ public class SectionActivity extends AppCompatActivity implements View.OnClickLi
     private String trainer_id;
     private User user;
     private Button back;
+    private int FLAG_CHECK;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_section);
         getSupportActionBar().setTitle("Секция");
+        FLAG_CHECK = 0;
         initialization();
         getIntentData();
         getDataBase();
@@ -93,7 +95,7 @@ public class SectionActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.Section_back:
                 finish();
                 break;
@@ -101,12 +103,18 @@ public class SectionActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void like(View view) {
-        LikeSection ls = new LikeSection(UserActivity.userID, UserActivity.userID, section_id);
-        like_section.child(UserActivity.userID).setValue(ls);
-
-        Toast toast = Toast.makeText(this, "Запись прошла успешно", LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
+        if (FLAG_CHECK < 1) {
+            LikeSection ls = new LikeSection(UserActivity.userID, UserActivity.userID, section_id);
+            like_section.child(UserActivity.userID).setValue(ls);
+            FLAG_CHECK++;
+            Toast toast = Toast.makeText(this, "Запись прошла успешно", LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        } else {
+            Toast toast = Toast.makeText(this, "Вы уже записались", LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
     }
 
 
@@ -119,5 +127,14 @@ public class SectionActivity extends AppCompatActivity implements View.OnClickLi
         Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
                 Uri.parse("http://maps.google.com/maps?daddr=Южное ш., 2Г, Нижний Новгород, Россия"));
         startActivity(intent);
+    }
+
+    public void dislike(View view) {
+            LikeSection ls = new LikeSection(UserActivity.userID, UserActivity.userID, "");
+            like_section.child(UserActivity.userID).setValue(ls);
+
+            Toast toast = Toast.makeText(this, "Вы отписались от секции", LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
     }
 }

@@ -16,7 +16,7 @@ import ru.tinkoff.decoro.slots.Slot;
 import ru.tinkoff.decoro.watchers.FormatWatcher;
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
 
-public class Function extends AppCompatActivity{
+public class Function extends AppCompatActivity {
     //Флаг проверки сосотояния сети;
     public static boolean FLAG_CONNECTING_NETWORK;
 
@@ -36,14 +36,15 @@ public class Function extends AppCompatActivity{
     ///////////////////////////////////
     //Функции для создания паттернов//
     /////////////////////////////////
-    public static void createPatternForDateBirthday(EditText date){
+    public static void createPatternForDateBirthday(EditText date) {
         Slot[] slots = new UnderscoreDigitSlotsParser().parseSlots("__.__.____");
         FormatWatcher formatWatcher = new MaskFormatWatcher(
                 MaskImpl.createTerminated(slots)
         );
         formatWatcher.installOn(date);
     }
-    public static void createPatternForSMSCode(EditText sms_code){
+
+    public static void createPatternForSMSCode(EditText sms_code) {
         Slot[] slots = new UnderscoreDigitSlotsParser().parseSlots("___-___");
         FormatWatcher formatWatcher = new MaskFormatWatcher(
                 MaskImpl.createTerminated(slots)
@@ -51,7 +52,7 @@ public class Function extends AppCompatActivity{
         formatWatcher.installOn(sms_code);
     }
 
-    public static void createPatternForPhoneNumber(EditText number){
+    public static void createPatternForPhoneNumber(EditText number) {
         FormatWatcher formatWatcher = new MaskFormatWatcher(
                 MaskImpl.createTerminated(PredefinedSlots.RUS_PHONE_NUMBER)
         );
@@ -61,7 +62,7 @@ public class Function extends AppCompatActivity{
     //////////////////////////////////////////////
     //Функции для заполнения выпадающего списка//
     ////////////////////////////////////////////
-    public static  void createArrayForSpinner(Spinner spinner, Activity activity){
+    public static void createArrayForSpinner(Spinner spinner, Activity activity) {
         String[] gender_array = {"не выбрано", "мужской", "женский"};
         ArrayAdapter<String> adapter = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, gender_array);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

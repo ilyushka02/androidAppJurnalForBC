@@ -266,27 +266,32 @@
                     android:textSize="@dimen/sizeTextViewSignUp"
                     android:textStyle="bold"/>
 
-                <EditText
+
+                <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/users_password_1"
                     android:layout_width="@dimen/widthTextEditSignUp"
-                    android:layout_height="@dimen/heightTextEditSignUp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:backgroundTint="@color/green"
                     android:ems="10"
                     android:hint="Введите пароль"
                     android:inputType="textPassword"
-                    android:textSize="@dimen/sizeTextEditSignUp" />
+                    android:textSize="@dimen/sizeTextEditSignUp"
+                    app:minCharacters="6"
+                    app:maxCharacters="12"/>
 
-                <EditText
+                <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/users_password_2"
                     android:layout_width="@dimen/widthTextEditSignUp"
-                    android:layout_height="@dimen/heightTextEditSignUp"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="25dp"
                     android:backgroundTint="@color/green"
                     android:ems="10"
                     android:hint="Введите пароль еще раз"
                     android:inputType="textPassword"
-                    android:textSize="@dimen/sizeTextEditSignUp" />
+                    android:textSize="@dimen/sizeTextEditSignUp"
+                    app:minCharacters="6"
+                    app:maxCharacters="12"/>
 
             </LinearLayout>
         </LinearLayout>
