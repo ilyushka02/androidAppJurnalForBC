@@ -15,12 +15,13 @@
             android:id="@+id/textView2"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:gravity="center"
+            android:padding="5dp"
             android:text="Список всех секций"
             android:textSize="17sp"
             android:textStyle="bold"
             tools:ignore="MissingConstraints" />
+
         <TextView
             android:id="@+id/textView13"
             android:layout_width="match_parent"
@@ -50,7 +51,7 @@
             <ListView
                 android:id="@+id/sectionLikeList"
                 android:layout_width="match_parent"
-                android:layout_height="320dp"/>
+                android:layout_height="320dp" />
 
         </LinearLayout>
     </LinearLayout>

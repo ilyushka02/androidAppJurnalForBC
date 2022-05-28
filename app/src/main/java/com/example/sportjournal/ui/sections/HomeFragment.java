@@ -94,10 +94,11 @@ public class HomeFragment extends Fragment implements View.OnTouchListener, View
         section = FirebaseDatabase.getInstance().getReference(Section.KEY);
         likeSection = FirebaseDatabase.getInstance().getReference(LikeSection.KEY);
         serch = (EditText) flipper.findViewById(R.id.Section_serch);
+        //устанавливаем слушатель нажатий
         serch.setOnClickListener(this);
     }
 
-
+    //обработчик для свапов
     public boolean onTouch(View view, MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN: // Пользователь нажал на экран, т.е. начало движения
@@ -115,6 +116,7 @@ public class HomeFragment extends Fragment implements View.OnTouchListener, View
         }
         return true;
     }
+
     //Получение данных из БД секции
     private void getDataBase() {
         section.addValueEventListener(new ValueEventListener() {
@@ -181,6 +183,9 @@ public class HomeFragment extends Fragment implements View.OnTouchListener, View
         });
     }
 
+    /////////////////////////////////////////////////
+    //Установка слушателя нажатий на строки списка//
+    ////////////////////////////////////////////////
     private void setOnClickItemLikeSection() {
         listViewLike.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -201,6 +206,7 @@ public class HomeFragment extends Fragment implements View.OnTouchListener, View
         });
     }
 
+    //Открытие окна секции
     private void openSectionActivity(Section s) {
         Intent intent = new Intent(this.getActivity(), SectionActivity.class);
         intent.putExtra("id", s.id);
@@ -211,8 +217,10 @@ public class HomeFragment extends Fragment implements View.OnTouchListener, View
         startActivity(intent);
     }
 
+    //Обработчик нажатий на текстовое поле
     @Override
     public void onClick(View view) {
+        //Устанавливаем слушатель на ввод текста
         serch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

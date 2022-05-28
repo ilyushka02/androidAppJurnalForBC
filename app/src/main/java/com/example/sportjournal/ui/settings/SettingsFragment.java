@@ -5,18 +5,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.sportjournal.R;
 import com.example.sportjournal.databinding.FragmentSettingsBinding;
 
-public class SettingsFragment extends Fragment implements View.OnClickListener {
+public class SettingsFragment extends Fragment implements View.OnClickListener{
     private View root;
     private Button exit;
+    private Switch aSwitch;
     private FragmentSettingsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -30,6 +33,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         final TextView textView = binding.textSettings;
         slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         initialization();
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.getDefaultNightMode());
         return root;
     }
 

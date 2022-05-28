@@ -186,27 +186,27 @@
                     android:gravity="center_horizontal"
                     android:text="Нам нужно немного больше информации"
                     android:textSize="@dimen/sizeTextViewSignUp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
 
                 <EditText
-                        android:id="@+id/birthday"
-                        android:layout_width="@dimen/widthTextEditSignUp"
-                        android:layout_height="@dimen/heightTextEditSignUp"
-                        android:backgroundTint="@color/green"
-                        android:ems="10"
-                        android:hint="Дата Рождения"
-                        android:inputType="date"
-                        android:textSize="@dimen/sizeTextEditSignUp" />
+                    android:id="@+id/birthday"
+                    android:layout_width="@dimen/widthTextEditSignUp"
+                    android:layout_height="@dimen/heightTextEditSignUp"
+                    android:backgroundTint="@color/green"
+                    android:ems="10"
+                    android:hint="Дата Рождения"
+                    android:inputType="date"
+                    android:textSize="@dimen/sizeTextEditSignUp" />
 
 
                 <TextView
                     android:id="@+id/textView7"
                     android:layout_width="@dimen/widthTextEditSignUp"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
                     android:hint="Пол"
                     android:paddingLeft="5dp"
-                    android:layout_marginBottom="5dp"
                     android:textSize="@dimen/sizeTextEditSignUp" />
 
                 <LinearLayout
@@ -221,7 +221,7 @@
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
                         android:backgroundTint="@color/green"
-                        android:textSize="@dimen/sizeTextEditSignUp"/>
+                        android:textSize="@dimen/sizeTextEditSignUp" />
 
                 </LinearLayout>
 
@@ -229,9 +229,9 @@
                     android:id="@+id/email"
                     android:layout_width="@dimen/widthTextEditSignUp"
                     android:layout_height="@dimen/heightTextEditSignUp"
+                    android:layout_marginBottom="20dp"
                     android:backgroundTint="@color/green"
                     android:ems="10"
-                    android:layout_marginBottom="20dp"
                     android:hint="user@email.ru"
                     android:inputType="textEmailAddress"
                     android:textSize="@dimen/sizeTextEditSignUp" />
@@ -264,7 +264,7 @@
                     android:gravity="center_horizontal"
                     android:text="Придумайте пароль"
                     android:textSize="@dimen/sizeTextViewSignUp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
 
                 <com.rengwuxian.materialedittext.MaterialEditText
@@ -277,8 +277,8 @@
                     android:hint="Введите пароль"
                     android:inputType="textPassword"
                     android:textSize="@dimen/sizeTextEditSignUp"
-                    app:minCharacters="6"
-                    app:maxCharacters="12"/>
+                    app:maxCharacters="12"
+                    app:minCharacters="6" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/users_password_2"
@@ -290,13 +290,12 @@
                     android:hint="Введите пароль еще раз"
                     android:inputType="textPassword"
                     android:textSize="@dimen/sizeTextEditSignUp"
-                    app:minCharacters="6"
-                    app:maxCharacters="12"/>
+                    app:maxCharacters="12"
+                    app:minCharacters="6" />
 
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,13 +8,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.example.sportjournal.Function;
 import com.example.sportjournal.R;
-import com.example.sportjournal.Signin;
 
 public class UploadImageDialog extends AppCompatDialogFragment {
-    Function f = new Function();
-    Signin s = new Signin();
     @NonNull
     @Override
     public android.app.Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {

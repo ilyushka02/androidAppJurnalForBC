@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidDevelop/SportJournal/app/src/main/res/drawable-v21/ic_menu_slideshow.xml" value="0.279" />
+        <entry key="..\:/AndroidDevelop/SportJournal/app/src/main/res/drawable/shape_for_field.xml" value="0.2045" />
+        <entry key="..\:/AndroidDevelop/SportJournal/app/src/main/res/drawable/shape_for_head.xml" value="0.2045" />
         <entry key="..\:/AndroidDevelop/SportJournal/app/src/main/res/drawable/shape_for_spiner.xml" value="0.2495" />
         <entry key="..\:/AndroidDevelop/SportJournal/app/src/main/res/drawable/shape_for_user_icon.xml" value="0.2495" />
         <entry key="..\:/AndroidDevelop/SportJournal/app/src/main/res/layout/activity_code_sms.xml" value="0.20606884057971014" />

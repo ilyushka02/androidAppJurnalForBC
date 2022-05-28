@@ -61,7 +61,7 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
     //Обработчик нажатий
     @Override
     public void onClick(View v) {
-        if (Function.FLAG_CONNECTING_NETWORK) {
+        if (isNetworkAvailable(this)) {
             switch (v.getId()) {
                 case R.id.signin_btn:
                     authorization();
